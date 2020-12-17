@@ -169,6 +169,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/main.c.s
 .PHONY : main.c.s
 
+project.obj: project.c.obj
+
+.PHONY : project.obj
+
+# target to build an object file
+project.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/project.c.obj
+.PHONY : project.c.obj
+
+project.i: project.c.i
+
+.PHONY : project.i
+
+# target to preprocess a source file
+project.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/project.c.i
+.PHONY : project.c.i
+
+project.s: project.c.s
+
+.PHONY : project.s
+
+# target to generate assembly for a file
+project.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/project.c.s
+.PHONY : project.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -181,6 +208,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... project.obj
+	@echo ... project.i
+	@echo ... project.s
 .PHONY : help
 
 

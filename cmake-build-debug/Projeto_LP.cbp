@@ -77,6 +77,12 @@
 		<Unit filename="C:/Users/ricpi/Desktop/Projeto-LP/main.c">
 			<Option target="Projeto_LP"/>
 		</Unit>
+		<Unit filename="C:/Users/ricpi/Desktop/Projeto-LP/project.c">
+			<Option target="Projeto_LP"/>
+		</Unit>
+		<Unit filename="C:/Users/ricpi/Desktop/Projeto-LP/project.h">
+			<Option target="Projeto_LP"/>
+		</Unit>
 		<Unit filename="C:/Users/ricpi/Desktop/Projeto-LP/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
