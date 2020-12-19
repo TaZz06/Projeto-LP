@@ -19,6 +19,7 @@
  * Antecedencia
  * Ocupação
  */
+
 typedef struct regra_custo {
     char *regra;
     float ajuste;
@@ -36,6 +37,7 @@ typedef struct politica {
  * airbnd
  * airbne
  */
+
 typedef struct plataforma {
     char *nome;
     int n_politicas;
@@ -83,12 +85,18 @@ typedef struct dia {
     int dia;
     int mes;
     int ano;
-    LISTA_EVENTOS *eventos;
+    LISTA_EVENTOS eventos;
 } DIA;
+
+typedef struct array_dias {
+    int n_dias;
+    int size_dias;
+    DIA * dias;
+} ARRAY_DIAS;
 
 typedef struct calendario {
     char *plataforma;
-    DIA *dias;
+    ARRAY_DIAS dias;
 } CALENDARIO;
 
 typedef struct dynarray_calendarios {
@@ -101,7 +109,7 @@ typedef struct estudio {
     int id_estudio;
     int numero_porta;
     char config[2];
-    ARRAY_CALENDAR *calendars;
+    ARRAY_CALENDAR calendars;
     float preco_dia;
     float preco_mensal;
     float preco_final;
