@@ -45,27 +45,11 @@ typedef struct plataforma {
     POLITICA *ppoliticas;
 } PLATAFORMA;
 
-typedef struct estadia {
-    int dia_inicio;
-    int dia_fim;
-} ESTADIA;
-
-typedef struct historico {
-    int id_estudio;
-    ESTADIA *estadia;
-} HISTORICO;
-
-typedef struct hospede {
-    int id;
-    int nome;
-    HISTORICO *historico;
-    struct hospede *phospede_next;
-} HOSPEDE;
-
-typedef struct lista_hospedes {
-    int n_hospedes;
-    HOSPEDE *phospedes;
-} LISTA_HOSPEDES;
+typedef struct dynarray_plataformas {
+    int n_plataformas;
+    int size_plataformas;
+    PLATAFORMA *pplataformas;
+} ARRAY_PLATAFORMAS;
 
 typedef struct evento {
     int id_evento;
@@ -133,6 +117,18 @@ typedef struct lista_edificios {
     int n_edificios;
     EDIFICIO *pedificios;
 } LISTA_EDIFICIOS;
+
+typedef struct hospede {
+    int id;
+    int nome;
+    LISTA_EDIFICIOS historico;
+    struct hospede *phospede_next;
+} HOSPEDE;
+
+typedef struct lista_hospedes {
+    int n_hospedes;
+    HOSPEDE *phospedes;
+} LISTA_HOSPEDES;
 
 int main_project(int argc, const char *argv[]);
 
