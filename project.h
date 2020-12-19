@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAXCONFIG 2
+
 /**
  * Configuração
  * Duração
@@ -75,7 +77,7 @@ typedef struct dia {
 typedef struct array_dias {
     int n_dias;
     int size_dias;
-    DIA * dias;
+    DIA *dias;
 } ARRAY_DIAS;
 
 typedef struct calendario {
@@ -92,7 +94,7 @@ typedef struct dynarray_calendarios {
 typedef struct estudio {
     int id_estudio;
     int numero_porta;
-    char config[2];
+    char config[MAXCONFIG];
     ARRAY_CALENDAR calendars;
     float preco_dia;
     float preco_mensal;
@@ -115,7 +117,7 @@ typedef struct edificio {
 
 typedef struct lista_edificios {
     int n_edificios;
-    EDIFICIO *pedificios;
+    EDIFICIO *pedificioshead, *pedificiostail;
 } LISTA_EDIFICIOS;
 
 typedef struct hospede {
@@ -131,5 +133,66 @@ typedef struct lista_hospedes {
 } LISTA_HOSPEDES;
 
 int main_project(int argc, const char *argv[]);
+
+/**
+* Iniciar uma lista de edificios.
+* @return - pointer para a lista de edificios criada (LISTA_EDIFICIOS).
+*/
+LISTA_EDIFICIOS *create_edificios_queue();
+
+/**
+* Iniciar um edificio queue node.
+* @return pointer para a lista de edificios criada
+*/
+EDIFICIO *create_edificio_queue_node();
+
+/**
+* Adiciona um  edificio ao queue de edificios (FIFO). Enqueue à tail.
+* @param edificios_queue - queue de edificios.
+* @param n_estudios - numero de estudios para criar o array de estudios associado ao edificio.
+*/
+void enqueue_edificio(LISTA_EDIFICIOS *edificios_queue, ARRAY_ESTUDIOS n_estudios);
+
+/**
+* Imprime uma lista de edificios dada.
+* @param lequ - lista de edificios a ser imprimida.
+*/
+void print_rect_queue(LISTA_EDIFICIOS *lequ);
+
+/**
+ * Criar um array dinâmico de estudios com um dado tamanho inicial.
+ * @param pae - apontador para o dynarray de estudios que caracteriza o estudio a inserir (ARRAY_ESTUDIOS).
+ * @param initsize - tamanho inicial do array dinâmico de estudios.
+ */
+void create_dynarray_estudios(ARRAY_ESTUDIOS *pae, int initsize);
+
+/**
+ * Insere um estudio no array dinâmico da lista de edificios.
+ * @param pae - apontador para o dynarray de estudios que caracteriza o estudio a inserir (ARRAY_ESTUDIOS).
+ * @param id - id do estudio a ser incrementado pelo programa e não inserido pelo utilizador.
+ * @param porta - número da porta indentificador do estudio.
+ * @param config - T0 / T1 / T2 / T3 / T4
+ * @param preco_dia - preço por noite do estudio a inserir.
+ * @param preco_mensal - preço por mensal do estudio a inserir.
+ * @param preco_final - preço final do estudio a inserir, a ser alterado pelas politicas da plataforma onde será inserido.
+ * @param area - area em metro quadrado do estudio a inserir.
+ */
+void insert_student_dynarray_estudios(ARRAY_ESTUDIOS *pae, int id, int porta, char config[MAXCONFIG], float preco_dia,
+                                      float preco_mensal, float preco_final, int area);
+
+/**
+ * Procura um student no array dinâmico da turma de students.
+ * @param estudios - cópia do array que caracteriza o conjunto de estudios de um edificio (ARRAY_ESTUDIOS).
+ * @param id_estudio - id do estudio a procurar no array dinâmico de estudios.
+ * @return apontador para o estudio ou NULL (caso não exista).
+ */
+ESTUDIO *find_student_dynarray_estudios(ARRAY_ESTUDIOS estudios, int id_estudio);
+
+/**
+ * Imprime os estudios do array dinâmico do conjunto de estudios de um edificio.
+ * @param estudios - cópia do array que caracteriza o conjunto de estudios de um edificio (ARRAY_ESTUDIOS).
+ */
+void print_dynarray_estudios(ARRAY_ESTUDIOS estudios);
+
 
 #endif //PROJETO_LP_PROJECT_H
