@@ -11,7 +11,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAXCONFIG 2
+#define MAXCONFIG 3  // T$ + "/0" ($=0/1/2/3/4)
+#define T0 "T0"
+#define T1 "T1"
+#define T2 "T2"
+#define T3 "T3"
+#define T4 "T4"
 
 /**
  * Configuração
@@ -149,7 +154,7 @@ EDIFICIO *create_edificio_queue_node();
 /**
 * Adiciona um  edificio ao queue de edificios (FIFO). Enqueue à tail.
 * @param edificios_queue - queue de edificios.
-* @param n_estudios - numero de estudios para criar o array de estudios associado ao edificio.
+* @param n_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
 void enqueue_edificio(LISTA_EDIFICIOS *edificios_queue, ARRAY_ESTUDIOS n_estudios);
 
@@ -171,13 +176,15 @@ void create_dynarray_estudios(ARRAY_ESTUDIOS *pae, int initsize);
  * @param pae - apontador para o dynarray de estudios que caracteriza o estudio a inserir (ARRAY_ESTUDIOS).
  * @param id - id do estudio a ser incrementado pelo programa e não inserido pelo utilizador.
  * @param porta - número da porta indentificador do estudio.
- * @param config - T0 / T1 / T2 / T3 / T4
+ * @param config - T0 / T1 / T2 / T3 / T4.
+ * @param n_calendarios - número de calendários para criar o array de calendários associado ao estudio (ARRAY_CALENDAR).
  * @param preco_dia - preço por noite do estudio a inserir.
  * @param preco_mensal - preço por mensal do estudio a inserir.
  * @param preco_final - preço final do estudio a inserir, a ser alterado pelas politicas da plataforma onde será inserido.
  * @param area - area em metro quadrado do estudio a inserir.
  */
-void insert_student_dynarray_estudios(ARRAY_ESTUDIOS *pae, int id, int porta, char config[MAXCONFIG], float preco_dia,
+void insert_student_dynarray_estudios(ARRAY_ESTUDIOS *pae, int id, int porta, char config[MAXCONFIG],
+                                      ARRAY_CALENDAR n_calendarios, float preco_dia,
                                       float preco_mensal, float preco_final, int area);
 
 /**
