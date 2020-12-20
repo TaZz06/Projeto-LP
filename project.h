@@ -85,22 +85,23 @@ typedef struct array_dias {
     DIA *dias;
 } ARRAY_DIAS;
 
-typedef struct calendario {
+typedef struct agenda {
+    int id_agenda;
     char *plataforma;
     ARRAY_DIAS dias;
-} CALENDARIO;
+} AGENDA;
 
-typedef struct dynarray_calendarios {
-    int n_calendarios;
-    int size_calendarios;
-    CALENDARIO *pcalendarios;
-} ARRAY_CALENDAR;
+typedef struct dynarray_agenda {
+    int n_agendas;
+    int size_agendas;
+    AGENDA *pagendas;
+} ARRAY_AGENDAS;
 
 typedef struct estudio {
     int id_estudio;
     int numero_porta;
     char config[MAXCONFIG];
-    ARRAY_CALENDAR calendars;
+    ARRAY_AGENDAS agendas;
     float preco_dia;
     float preco_mensal;
     float preco_final;
@@ -143,63 +144,41 @@ int main_project(int argc, const char *argv[]);
 * Iniciar uma lista de edificios.
 * @return - pointer para a lista de edificios criada (LISTA_EDIFICIOS).
 */
-LISTA_EDIFICIOS *create_edificios_queue();
+LISTA_EDIFICIOS *create_lista_edificios();
 
 /**
-* Iniciar um edificio queue node.
-* @return pointer para a lista de edificios criada
+* Adiciona um  edificio à lista de edificios.
+* @param lista_edificios
+* @param id_edificio
+* @param morada_edificio
+* @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-EDIFICIO *create_edificio_queue_node();
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], int size_estudios);
 
-/**
-* Adiciona um  edificio ao queue de edificios (FIFO). Enqueue à tail.
-* @param edificios_queue - queue de edificios.
-* @param n_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
-*/
-void enqueue_edificio(LISTA_EDIFICIOS *edificios_queue, ARRAY_ESTUDIOS n_estudios);
+EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
-/**
-* Imprime uma lista de edificios dada.
-* @param lequ - lista de edificios a ser imprimida.
-*/
-void print_rect_queue(LISTA_EDIFICIOS *lequ);
+void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *edificio);
 
-/**
- * Criar um array dinâmico de estudios com um dado tamanho inicial.
- * @param pae - apontador para o dynarray de estudios que caracteriza o estudio a inserir (ARRAY_ESTUDIOS).
- * @param initsize - tamanho inicial do array dinâmico de estudios.
- */
-void create_dynarray_estudios(ARRAY_ESTUDIOS *pae, int initsize);
+void change_edificio_info(EDIFICIO *edificio, char morada_edificio[]);
 
-/**
- * Insere um estudio no array dinâmico da lista de edificios.
- * @param pae - apontador para o dynarray de estudios que caracteriza o estudio a inserir (ARRAY_ESTUDIOS).
- * @param id - id do estudio a ser incrementado pelo programa e não inserido pelo utilizador.
- * @param porta - número da porta indentificador do estudio.
- * @param config - T0 / T1 / T2 / T3 / T4.
- * @param n_calendarios - número de calendários para criar o array de calendários associado ao estudio (ARRAY_CALENDAR).
- * @param preco_dia - preço por noite do estudio a inserir.
- * @param preco_mensal - preço por mensal do estudio a inserir.
- * @param preco_final - preço final do estudio a inserir, a ser alterado pelas politicas da plataforma onde será inserido.
- * @param area - area em metro quadrado do estudio a inserir.
- */
-void insert_student_dynarray_estudios(ARRAY_ESTUDIOS *pae, int id, int porta, char config[MAXCONFIG],
-                                      ARRAY_CALENDAR n_calendarios, float preco_dia,
-                                      float preco_mensal, float preco_final, int area);
+/*------------------------------------------------------------------------------------------------------------------------*/
 
-/**
- * Procura um student no array dinâmico da turma de students.
- * @param estudios - cópia do array que caracteriza o conjunto de estudios de um edificio (ARRAY_ESTUDIOS).
- * @param id_estudio - id do estudio a procurar no array dinâmico de estudios.
- * @return apontador para o estudio ou NULL (caso não exista).
- */
-ESTUDIO *find_student_dynarray_estudios(ARRAY_ESTUDIOS estudios, int id_estudio);
+void insert_estudio_ordered(ARRAY_ESTUDIOS *estudios, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
 
-/**
- * Imprime os estudios do array dinâmico do conjunto de estudios de um edificio.
- * @param estudios - cópia do array que caracteriza o conjunto de estudios de um edificio (ARRAY_ESTUDIOS).
- */
-void print_dynarray_estudios(ARRAY_ESTUDIOS estudios);
+ESTUDIO *find_estudio(const LISTA_EDIFICIOS *lista_edificios, const EDIFICIO *edificio, const ARRAY_ESTUDIOS *estudios, int id_estudio);
 
+void remove_estudio_ordered(ARRAY_ESTUDIOS *estudios, ESTUDIO *estudio);
+
+void change_estudio_info(ESTUDIO *estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
+
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+void insert_agenda(ARRAY_AGENDAS *agendas, char plataforma[], int size_dias);
+
+AGENDA *find_agenda(const LISTA_EDIFICIOS *lista_edificios, const EDIFICIO *edificio, const ARRAY_ESTUDIOS *estudios, const ESTUDIO *estudio, const ARRAY_AGENDAS *agendas, int id_agenda);
+
+void remove_agenda(ARRAY_AGENDAS *agendas, AGENDA *agenda);
+
+void change_agenda_info(AGENDA *agenda, char plataforma[]);
 
 #endif //PROJETO_LP_PROJECT_H
