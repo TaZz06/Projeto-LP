@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug"/>
+				<Option working_dir="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Projeto_LP">
-				<Option output="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Projeto_LP.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug"/>
+				<Option output="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Projeto_LP.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -29,15 +29,15 @@
 					<Add directory="C:/mingw/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 Projeto_LP"/>
-					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 Projeto_LP"/>
+					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Projeto_LP/fast">
-				<Option output="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Projeto_LP.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug"/>
+				<Option output="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Projeto_LP.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -47,43 +47,43 @@
 					<Add directory="C:/mingw/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 Projeto_LP/fast"/>
-					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 Projeto_LP/fast"/>
+					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug"/>
+				<Option working_dir="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug"/>
+				<Option working_dir="D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/joaop/CLionProjects/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/mingw64/bin/mingw32-make.exe -f &quot;D:/ProgramacaoGit/GitHub/Projeto-LP/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/joaop/CLionProjects/Projeto-LP/main.c">
+		<Unit filename="D:/ProgramacaoGit/GitHub/Projeto-LP/main.c">
 			<Option target="Projeto_LP"/>
 		</Unit>
-		<Unit filename="C:/Users/joaop/CLionProjects/Projeto-LP/project.c">
+		<Unit filename="D:/ProgramacaoGit/GitHub/Projeto-LP/project.c">
 			<Option target="Projeto_LP"/>
 		</Unit>
-		<Unit filename="C:/Users/joaop/CLionProjects/Projeto-LP/project.h">
+		<Unit filename="D:/ProgramacaoGit/GitHub/Projeto-LP/project.h">
 			<Option target="Projeto_LP"/>
 		</Unit>
-		<Unit filename="C:/Users/joaop/CLionProjects/Projeto-LP/CMakeLists.txt">
+		<Unit filename="D:/ProgramacaoGit/GitHub/Projeto-LP/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

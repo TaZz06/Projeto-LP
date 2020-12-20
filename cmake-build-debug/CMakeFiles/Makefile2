@@ -54,19 +54,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2019.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "D:\Programacao\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2019.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "D:\Programacao\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\joaop\CLionProjects\Projeto-LP
+CMAKE_SOURCE_DIR = D:\ProgramacaoGit\GitHub\Projeto-LP
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug
+CMAKE_BINARY_DIR = D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -93,14 +93,14 @@ clean: CMakeFiles/Projeto_LP.dir/clean
 CMakeFiles/Projeto_LP.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Projeto_LP.dir\build.make CMakeFiles/Projeto_LP.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target Projeto_LP"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target Projeto_LP"
 .PHONY : CMakeFiles/Projeto_LP.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Projeto_LP.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Projeto_LP.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/Projeto_LP.dir/rule
 
 # Convenience name for target.

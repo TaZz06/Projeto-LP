@@ -123,7 +123,7 @@ typedef struct edificio {
 
 typedef struct lista_edificios {
     int n_edificios;
-    EDIFICIO *pedificioshead, *pedificiostail;
+    EDIFICIO *pedificios;
 } LISTA_EDIFICIOS;
 
 typedef struct hospede {
@@ -139,12 +139,14 @@ typedef struct lista_hospedes {
 } LISTA_HOSPEDES;
 
 int main_project(int argc, const char *argv[]);
+void print_coisas(LISTA_EDIFICIOS * le);
+
 
 /**
 * Iniciar uma lista de edificios.
 * @return - pointer para a lista de edificios criada (LISTA_EDIFICIOS).
 */
-LISTA_EDIFICIOS *create_lista_edificios();
+LISTA_EDIFICIOS *create_lista_edificios(void);
 
 /**
 * Adiciona um  edificio à lista de edificios.
