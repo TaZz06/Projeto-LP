@@ -159,28 +159,48 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edifi
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
-void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *edificio);
+void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio);
 
-void change_edificio_info(EDIFICIO *edificio, char morada_edificio[]);
-
-/*------------------------------------------------------------------------------------------------------------------------*/
-
-void insert_estudio_ordered(ARRAY_ESTUDIOS *estudios, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
-
-ESTUDIO *find_estudio(const LISTA_EDIFICIOS *lista_edificios, const EDIFICIO *edificio, const ARRAY_ESTUDIOS *estudios, int id_estudio);
-
-void remove_estudio_ordered(ARRAY_ESTUDIOS *estudios, ESTUDIO *estudio);
-
-void change_estudio_info(ESTUDIO *estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
+void change_edificio_info(EDIFICIO *found_edificio, char morada_edificio[]);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 
-void insert_agenda(ARRAY_AGENDAS *agendas, char plataforma[], int size_dias);
+void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
 
-AGENDA *find_agenda(const LISTA_EDIFICIOS *lista_edificios, const EDIFICIO *edificio, const ARRAY_ESTUDIOS *estudios, const ESTUDIO *estudio, const ARRAY_AGENDAS *agendas, int id_agenda);
+ESTUDIO *find_estudio(const EDIFICIO *edificio, int id_estudio);
 
-void remove_agenda(ARRAY_AGENDAS *agendas, AGENDA *agenda);
+void remove_estudio_ordered(EDIFICIO *edificio, ESTUDIO *found_estudio);
 
-void change_agenda_info(AGENDA *agenda, char plataforma[]);
+void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
+
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+void insert_agenda(ESTUDIO *estudio, char plataforma[], int size_dias);
+
+AGENDA *find_agenda(const ESTUDIO *estudio, int id_agenda);
+
+void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda);
+
+void change_agenda_info(AGENDA *found_agenda, char plataforma[]);
+
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano, int size_eventos);
+
+DIA *find_dia(const AGENDA *agenda, int dia, int mes, int ano);
+
+void remove_dia(AGENDA *agenda, DIA *found_dia);
+
+void change_dia_info(DIA *found_dia, int dia, int mes, int ano);
+
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+void insert_evento(DIA *found_dia, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+
+EVENTO *find_evento(const DIA *found_dia, int id_evento);
+
+void remove_evento(DIA *found_dia, EVENTO *found_evento);
+
+void change_evento_info(EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 #endif //PROJETO_LP_PROJECT_H
