@@ -18,6 +18,7 @@
 #define T3 "T3"
 #define T4 "T4"
 
+
 /**
  * Configuração
  * Duração
@@ -142,8 +143,8 @@ typedef struct lista_hospedes {
 
 int main_project(int argc, const char *argv[]);
 
-void print_coisas(LISTA_EDIFICIOS *le);
-
+void print_edificios(LISTA_EDIFICIOS *listaEdificios);
+void print_estudios(EDIFICIO *found_edificio);
 
 /**
 * Iniciar uma lista de edificios.
@@ -170,6 +171,8 @@ change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio,
                      float longitude);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
+
+void create_dynarray_estudios(EDIFICIO *pedf, int initsize);
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);
