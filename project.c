@@ -23,10 +23,9 @@ int main_project(int argc, const char *argv[]) {
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
 
-    findEd = find_edificio(le, 0);
+    findEd = find_edificio(le, 3);
     change_edificio_info(le, findEd, "g");
     print_coisas(le);
-
 
     return 0;
 }
@@ -94,7 +93,14 @@ void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edif
         ppre = pcur;
         pcur = pcur->edf_next;
     }
-
+    if(pcur == lista_edificios->pedificios){
+        lista_edificios->pedificios = pcur->edf_next;
+        pcur = lista_edificios->pedificios;
+    }
+    else {
+        ppre->edf_next = pcur->edf_next;
+        ppre = NULL, pcur = lista_edificios->pedificios;
+    }
     strcpy(found_edificio->edf_morada, morada_edificio);
     while (pcur != NULL && strcmp(morada_edificio, pcur->edf_morada) > 0) {
         ppre = pcur;
