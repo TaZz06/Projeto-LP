@@ -23,12 +23,18 @@ int main_project(int argc, const char *argv[]) {
 
 
     EDIFICIO *findEd = find_edificio(le, 1);
-    insert_estudio_ordered(findEd, 122, T0, 3, 50, 600, 0, 120);
-    insert_estudio_ordered(findEd, 123, T1, 3, 50, 600, 0, 120);
-    insert_estudio_ordered(findEd, 124, T2, 3, 50, 600, 0, 120);
-    insert_estudio_ordered(findEd, 126, T4, 3, 50, 600, 0, 120);
-    print_estudios(findEd); //TODO JÁ ESTA A FUNFAR FDGP MUDEI AS FUNÇOES DE CREATE ARRAY ESTUDIOS/ ACRESCENTEI A
-    //TODO INICIAÇÂO DE ESTUDIOS LÁ E TESTEI COM VÁRIOS
+    insert_estudio_ordered(findEd, 121, T0, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 122, T1, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 123, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 124, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 125, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 126, T0, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 127, T1, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 128, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 129, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 130, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 131, T4, 3, 50, 600, 0, 120);
+    print_estudios(findEd);
     //printf("Morada: %s\n", findEd->edf_morada);
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
@@ -171,6 +177,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
         int old_size = edificio->estudios.size_estudios;
         int new_size = old_size + 10;
         edificio->estudios.pestudios = (ESTUDIO *) realloc(edificio->estudios.pestudios, new_size * sizeof(ESTUDIO));
+        edificio->estudios.size_estudios = new_size;
         for (i = old_size; i < new_size; ++i) {
             pestudio->numero_porta = 0;
             strcpy(pestudio->config, EMPTY);
