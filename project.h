@@ -18,6 +18,11 @@
 #define T3 "T3"
 #define T4 "T4"
 
+typedef struct gps {
+    int latitude;
+    int longitude;
+} GPS;
+
 /**
  * Configuração
  * Duração
@@ -117,6 +122,7 @@ typedef struct dynarray_estudios {
 typedef struct edificio {
     int id_edificio;
     char *edf_morada;
+    GPS coordenadas;
     ARRAY_ESTUDIOS estudios;
     struct edificio *edf_next;
 } EDIFICIO;
@@ -139,7 +145,8 @@ typedef struct lista_hospedes {
 } LISTA_HOSPEDES;
 
 int main_project(int argc, const char *argv[]);
-void print_coisas(LISTA_EDIFICIOS * le);
+
+void print_coisas(LISTA_EDIFICIOS *le);
 
 
 /**
@@ -155,23 +162,25 @@ LISTA_EDIFICIOS *create_lista_edificios(void);
 * @param morada_edificio
 * @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], int size_estudios);
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], GPS coordenadas, int size_estudios);
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio);
 
-void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[]);
+void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], GPS coordenadas);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 
-void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
+void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
+                            float p_mes, float p_final, int area);
 
 ESTUDIO *find_estudio(const EDIFICIO *edificio, int id_estudio);
 
 void remove_estudio_ordered(EDIFICIO *edificio, ESTUDIO *found_estudio);
 
-void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia, float p_mes, float p_final, int area);
+void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
+                         float p_mes, float p_final, int area);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 

@@ -22,7 +22,6 @@ int main_project(int argc, const char *argv[]) {
     printf("Morada: %s\n", findEd->edf_morada);
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
-
     findEd = find_edificio(le, 3);
     change_edificio_info(le, findEd, "g");
     print_coisas(le);
