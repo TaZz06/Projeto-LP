@@ -53,19 +53,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2019.2.3\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "D:\Programacao\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2019.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "D:\Programacao\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\joaop\CLionProjects\Projeto-LP
+CMAKE_SOURCE_DIR = D:\ProgramacaoGit\GitHub\Projeto-LP
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug
+CMAKE_BINARY_DIR = D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Projeto_LP.dir/depend.make
@@ -78,29 +78,29 @@ include CMakeFiles/Projeto_LP.dir/flags.make
 
 CMakeFiles/Projeto_LP.dir/main.c.obj: CMakeFiles/Projeto_LP.dir/flags.make
 CMakeFiles/Projeto_LP.dir/main.c.obj: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Projeto_LP.dir/main.c.obj"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Projeto_LP.dir\main.c.obj   -c C:\Users\joaop\CLionProjects\Projeto-LP\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Projeto_LP.dir/main.c.obj"
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Projeto_LP.dir\main.c.obj   -c D:\ProgramacaoGit\GitHub\Projeto-LP\main.c
 
 CMakeFiles/Projeto_LP.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Projeto_LP.dir/main.c.i"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\joaop\CLionProjects\Projeto-LP\main.c > CMakeFiles\Projeto_LP.dir\main.c.i
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\ProgramacaoGit\GitHub\Projeto-LP\main.c > CMakeFiles\Projeto_LP.dir\main.c.i
 
 CMakeFiles/Projeto_LP.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Projeto_LP.dir/main.c.s"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\joaop\CLionProjects\Projeto-LP\main.c -o CMakeFiles\Projeto_LP.dir\main.c.s
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\ProgramacaoGit\GitHub\Projeto-LP\main.c -o CMakeFiles\Projeto_LP.dir\main.c.s
 
 CMakeFiles/Projeto_LP.dir/project.c.obj: CMakeFiles/Projeto_LP.dir/flags.make
 CMakeFiles/Projeto_LP.dir/project.c.obj: ../project.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Projeto_LP.dir/project.c.obj"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Projeto_LP.dir\project.c.obj   -c C:\Users\joaop\CLionProjects\Projeto-LP\project.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Projeto_LP.dir/project.c.obj"
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\Projeto_LP.dir\project.c.obj   -c D:\ProgramacaoGit\GitHub\Projeto-LP\project.c
 
 CMakeFiles/Projeto_LP.dir/project.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Projeto_LP.dir/project.c.i"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\joaop\CLionProjects\Projeto-LP\project.c > CMakeFiles\Projeto_LP.dir\project.c.i
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\ProgramacaoGit\GitHub\Projeto-LP\project.c > CMakeFiles\Projeto_LP.dir\project.c.i
 
 CMakeFiles/Projeto_LP.dir/project.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Projeto_LP.dir/project.c.s"
-	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\joaop\CLionProjects\Projeto-LP\project.c -o CMakeFiles\Projeto_LP.dir\project.c.s
+	C:\mingw\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\ProgramacaoGit\GitHub\Projeto-LP\project.c -o CMakeFiles\Projeto_LP.dir\project.c.s
 
 # Object files for target Projeto_LP
 Projeto_LP_OBJECTS = \
@@ -116,7 +116,7 @@ Projeto_LP.exe: CMakeFiles/Projeto_LP.dir/build.make
 Projeto_LP.exe: CMakeFiles/Projeto_LP.dir/linklibs.rsp
 Projeto_LP.exe: CMakeFiles/Projeto_LP.dir/objects1.rsp
 Projeto_LP.exe: CMakeFiles/Projeto_LP.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Projeto_LP.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Projeto_LP.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Projeto_LP.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -129,6 +129,6 @@ CMakeFiles/Projeto_LP.dir/clean:
 .PHONY : CMakeFiles/Projeto_LP.dir/clean
 
 CMakeFiles/Projeto_LP.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\joaop\CLionProjects\Projeto-LP C:\Users\joaop\CLionProjects\Projeto-LP C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug C:\Users\joaop\CLionProjects\Projeto-LP\cmake-build-debug\CMakeFiles\Projeto_LP.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\ProgramacaoGit\GitHub\Projeto-LP D:\ProgramacaoGit\GitHub\Projeto-LP D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug D:\ProgramacaoGit\GitHub\Projeto-LP\cmake-build-debug\CMakeFiles\Projeto_LP.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Projeto_LP.dir/depend
 

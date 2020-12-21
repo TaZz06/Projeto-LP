@@ -1,3 +1,3 @@
-"C:\Program Files\JetBrains\CLion 2019.2.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Projeto_LP.dir/objects.a
+"D:\Programacao\CLion\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Projeto_LP.dir/objects.a
 C:\mingw\mingw64\bin\ar.exe cr CMakeFiles\Projeto_LP.dir/objects.a @CMakeFiles\Projeto_LP.dir\objects1.rsp
 C:\mingw\mingw64\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\Projeto_LP.dir/objects.a -Wl,--no-whole-archive  -o Projeto_LP.exe -Wl,--out-implib,libProjeto_LP.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Projeto_LP.dir\linklibs.rsp

@@ -161,7 +161,7 @@ EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio)
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio);
 
-void change_edificio_info(EDIFICIO *found_edificio, char morada_edificio[]);
+void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[]);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 
