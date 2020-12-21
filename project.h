@@ -158,13 +158,16 @@ LISTA_EDIFICIOS *create_lista_edificios(void);
 * @param morada_edificio
 * @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], float latitude, float longitude, int size_estudios);
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], float latitude, float longitude,
+                             int size_estudios);
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio);
 
-void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], float latitude, float longitude);
+void
+change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], float latitude,
+                     float longitude);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 

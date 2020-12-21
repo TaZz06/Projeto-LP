@@ -11,10 +11,12 @@ int id_edificios = 0;
 int main_project(int argc, const char *argv[]) {
     int size = 10;
     LISTA_EDIFICIOS *le = create_lista_edificios();
-    insert_edificio_ordered(le, "o", -12,3,size);
-    insert_edificio_ordered(le, "d",-123,45, size);
+    insert_edificio_ordered(le, "f", -12,3,size);
+    insert_edificio_ordered(le, "o",-125453,434125, size);
+    insert_edificio_ordered(le, "k",-13213,478785, size);
+    insert_edificio_ordered(le, "z",-123,495, size);
     insert_edificio_ordered(le, "a",-0.4,90, size);
-    insert_edificio_ordered(le, "f",-0.04, 56, size);
+    insert_edificio_ordered(le, "b",-0.04, 56, size);
 
     print_coisas(le);
 
@@ -40,6 +42,8 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edifi
     e->id_edificio = id_edificios++;
     e->edf_morada = (char *) malloc(sizeof(char) * strlen(morada_edificio) + 1);
     strcpy(e->edf_morada, morada_edificio);
+    e->latitude = latitude;
+    e->longitude = longitude;
     ARRAY_ESTUDIOS ae = {0, size_estudios, NULL};
     e->estudios = ae;
     e->edf_next = NULL;
@@ -101,6 +105,9 @@ void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edif
         ppre = NULL, pcur = lista_edificios->pedificios;
     }
     strcpy(found_edificio->edf_morada, morada_edificio);
+    found_edificio->latitude = latitude;
+    found_edificio->longitude = longitude;
+    /*Colocar o edificio alterado na posição correta, na lista, tendo em conta a  morada*/
     while (pcur != NULL && strcmp(morada_edificio, pcur->edf_morada) > 0) {
         ppre = pcur;
         pcur = pcur->edf_next;
@@ -117,7 +124,7 @@ void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edif
 void print_coisas(LISTA_EDIFICIOS *le) {
     EDIFICIO *aux = le->pedificios;
     while (aux != NULL) {
-        printf("N edificios %d Id: %d Morada: %s\n", le->n_edificios, aux->id_edificio, aux->edf_morada);
+        printf("N edificios %d Id: %d Morada: %s Latitude: %.3f Longitude: %.3f\n", le->n_edificios, aux->id_edificio, aux->edf_morada, aux->latitude, aux->longitude);
         aux = aux->edf_next;
     }
 }
