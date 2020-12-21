@@ -13,18 +13,22 @@ int main_project(int argc, const char *argv[]) {
     int size = 10;
     LISTA_EDIFICIOS *le = create_lista_edificios();
     insert_edificio_ordered(le, "f", -12, 3, size);
-    insert_edificio_ordered(le, "o",-125453,434125, size);
-     insert_edificio_ordered(le, "k",-13213,478785, size);
-     insert_edificio_ordered(le, "z",-123,495, size);
-     insert_edificio_ordered(le, "a",-0.4,90, size);
-     insert_edificio_ordered(le, "b",-0.04, 56, size);
+    insert_edificio_ordered(le, "o", -125453, 434125, size);
+    insert_edificio_ordered(le, "k", -13213, 478785, size);
+    insert_edificio_ordered(le, "z", -123, 495, size);
+    insert_edificio_ordered(le, "a", -0.4, 90, size);
+    insert_edificio_ordered(le, "b", -0.04, 56, size);
 
     print_edificios(le);
 
 
     EDIFICIO *findEd = find_edificio(le, 1);
     insert_estudio_ordered(findEd, 122, T0, 3, 50, 600, 0, 120);
-    print_estudios(findEd); //TODO Testar com mais estudios e ver se funciona.
+    insert_estudio_ordered(findEd, 123, T1, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 124, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, 126, T4, 3, 50, 600, 0, 120);
+    print_estudios(findEd); //TODO JÁ ESTA A FUNFAR FDGP MUDEI AS FUNÇOES DE CREATE ARRAY ESTUDIOS/ ACRESCENTEI A
+    //TODO INICIAÇÂO DE ESTUDIOS LÁ E TESTEI COM VÁRIOS
     //printf("Morada: %s\n", findEd->edf_morada);
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
@@ -49,7 +53,7 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edifi
     strcpy(e->edf_morada, morada_edificio);
     e->latitude = latitude;
     e->longitude = longitude;
-    ARRAY_ESTUDIOS * ea = create_dynarray_estudios(e, size_estudios);
+    ARRAY_ESTUDIOS *ea = create_dynarray_estudios(e, size_estudios);
     e->estudios = *ea;
     e->edf_next = NULL;
 
@@ -136,21 +140,21 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios) {
         aux = aux->edf_next;
     }
 }
-ARRAY_ESTUDIOS * create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
+
+ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
     ARRAY_ESTUDIOS *parray_estudios = (ARRAY_ESTUDIOS *) calloc(1, sizeof(ARRAY_ESTUDIOS));
     parray_estudios->size_estudios = initsize;
     parray_estudios->n_estudios = 0;
-    parray_estudios->pestudios = pedf->estudios.pestudios;
+    parray_estudios->pestudios = (ESTUDIO *) calloc(initsize, sizeof(ESTUDIO));
     return parray_estudios;
 }
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area) {
     int i;
-    ESTUDIO *pestudio = (ESTUDIO *) calloc(1, sizeof(ESTUDIO));
-
+    ESTUDIO *pestudio = edificio->estudios.pestudios;
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
-        if (pestudio->area == 0) {
+        if (pestudio->preco_dia == 0) {
             pestudio->id_estudio = id_estudios++;
             pestudio->numero_porta = porta;
             strcpy(pestudio->config, config);
@@ -159,27 +163,24 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
             pestudio->preco_final = p_final;
             pestudio->area = area;
             edificio->estudios.n_estudios++;
-            edificio->estudios.pestudios = pestudio;
             return;
         }
         pestudio++;
     }
-    if (i == edificio->estudios.n_estudios) {
-        int old_size = edificio->estudios.n_estudios, new_size = old_size + 10;
+    if (i == edificio->estudios.size_estudios) {
+        int old_size = edificio->estudios.size_estudios;
+        int new_size = old_size + 10;
         edificio->estudios.pestudios = (ESTUDIO *) realloc(edificio->estudios.pestudios, new_size * sizeof(ESTUDIO));
-        edificio->estudios.n_estudios = new_size;
-        pestudio = edificio->estudios.pestudios + old_size;
         for (i = old_size; i < new_size; ++i) {
             pestudio->numero_porta = 0;
-            strcpy(pestudio->config, NULL);
+            strcpy(pestudio->config, EMPTY);
             pestudio->preco_dia = 0.0f;
             pestudio->preco_mensal = 0.0f;
             pestudio->preco_final = 0.0f;
             pestudio->area = 0;
-            pestudio++;
         }
-        pestudio->id_estudio = id_estudios++;
         pestudio = edificio->estudios.pestudios + old_size;
+        pestudio->id_estudio = id_estudios++;
         pestudio->numero_porta = porta;
         strcpy(pestudio->config, config);
         pestudio->preco_dia = p_dia;
@@ -187,9 +188,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
         pestudio->preco_final = p_final;
         pestudio->area = area;
         edificio->estudios.n_estudios++;
-        edificio->estudios.pestudios = pestudio;
     }
-
 }
 
 void print_estudios(EDIFICIO *found_edificio) {
@@ -198,5 +197,6 @@ void print_estudios(EDIFICIO *found_edificio) {
         printf("ID: %d PORTA: %d CONFIG: %s PRECO_DIA: %.3f PRECO_MES: %.3f PRECO_FINAL: %.3f AREA: %d\n",
                a->id_estudio,
                a->numero_porta, a->config, a->preco_dia, a->preco_mensal, a->preco_final, a->area);
+        a++;
     }
 }

@@ -17,7 +17,7 @@
 #define T2 "T2"
 #define T3 "T3"
 #define T4 "T4"
-
+#define EMPTY "  "
 
 /**
  * Configuração
