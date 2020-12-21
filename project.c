@@ -11,10 +11,10 @@ int id_edificios = 0;
 int main_project(int argc, const char *argv[]) {
     int size = 10;
     LISTA_EDIFICIOS *le = create_lista_edificios();
-    insert_edificio_ordered(le, "o", size);
-    insert_edificio_ordered(le, "d", size);
-    insert_edificio_ordered(le, "a", size);
-    insert_edificio_ordered(le, "f", size);
+    insert_edificio_ordered(le, "o", -12,3,size);
+    insert_edificio_ordered(le, "d",-123,45, size);
+    insert_edificio_ordered(le, "a",-0.4,90, size);
+    insert_edificio_ordered(le, "f",-0.04, 56, size);
 
     print_coisas(le);
 
@@ -23,7 +23,7 @@ int main_project(int argc, const char *argv[]) {
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
     findEd = find_edificio(le, 3);
-    change_edificio_info(le, findEd, "g");
+    change_edificio_info(le, findEd, "g", 0.1,0.3);
     print_coisas(le);
 
     return 0;
@@ -35,7 +35,7 @@ LISTA_EDIFICIOS *create_lista_edificios(void) {
     return le;
 }
 
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], int size_estudios) {
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], float latitude, float longitude, int size_estudios) {
     EDIFICIO *e = (EDIFICIO *) calloc(1, sizeof(EDIFICIO));
     e->id_edificio = id_edificios++;
     e->edf_morada = (char *) malloc(sizeof(char) * strlen(morada_edificio) + 1);
@@ -86,7 +86,7 @@ void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_e
     lista_edificios->n_edificios--;
 }
 
-void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[]) {
+void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], float latitude, float longitude) {
     EDIFICIO *ppre = NULL, *pcur = lista_edificios->pedificios;
     while (pcur != NULL && pcur != found_edificio) {
         ppre = pcur;

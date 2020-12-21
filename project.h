@@ -18,11 +18,6 @@
 #define T3 "T3"
 #define T4 "T4"
 
-typedef struct gps {
-    int latitude;
-    int longitude;
-} GPS;
-
 /**
  * Configuração
  * Duração
@@ -122,7 +117,8 @@ typedef struct dynarray_estudios {
 typedef struct edificio {
     int id_edificio;
     char *edf_morada;
-    GPS coordenadas;
+    float latitude;
+    float longitude;
     ARRAY_ESTUDIOS estudios;
     struct edificio *edf_next;
 } EDIFICIO;
@@ -162,13 +158,13 @@ LISTA_EDIFICIOS *create_lista_edificios(void);
 * @param morada_edificio
 * @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], GPS coordenadas, int size_estudios);
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], float latitude, float longitude, int size_estudios);
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio);
 
-void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], GPS coordenadas);
+void change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], float latitude, float longitude);
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 
