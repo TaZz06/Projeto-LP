@@ -13,18 +13,18 @@ int main_project(int argc, const char *argv[]) {
     int size = 10;
     LISTA_EDIFICIOS *le = create_lista_edificios();
     insert_edificio_ordered(le, "f", -12, 3, size);
-    /* insert_edificio_ordered(le, "o",-125453,434125, size);
+    insert_edificio_ordered(le, "o",-125453,434125, size);
      insert_edificio_ordered(le, "k",-13213,478785, size);
      insert_edificio_ordered(le, "z",-123,495, size);
      insert_edificio_ordered(le, "a",-0.4,90, size);
-     insert_edificio_ordered(le, "b",-0.04, 56, size);*/
+     insert_edificio_ordered(le, "b",-0.04, 56, size);
 
     print_edificios(le);
 
 
     EDIFICIO *findEd = find_edificio(le, 1);
     insert_estudio_ordered(findEd, 122, T0, 3, 50, 600, 0, 120);
-    print_estudios(findEd);
+    print_estudios(findEd); //TODO Testar com mais estudios e ver se funciona.
     //printf("Morada: %s\n", findEd->edf_morada);
     //remove_edificio_ordered(le, findEd);
     //print_coisas(le);
@@ -49,9 +49,8 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edifi
     strcpy(e->edf_morada, morada_edificio);
     e->latitude = latitude;
     e->longitude = longitude;
-    create_dynarray_estudios(e, size_estudios);
-    printf("%d\n", e->estudios.size_estudios);
-    printf("%d\n", e->estudios.n_estudios);
+    ARRAY_ESTUDIOS * ea = create_dynarray_estudios(e, size_estudios);
+    e->estudios = *ea;
     e->edf_next = NULL;
 
     EDIFICIO *ppre = NULL, *pcur = lista_edificios->pedificios;
@@ -128,17 +127,6 @@ change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio,
     ppre->edf_next = found_edificio;
 }
 
-void create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
-    ARRAY_ESTUDIOS *parray_estudios = (ARRAY_ESTUDIOS *) calloc(1, sizeof(ARRAY_ESTUDIOS));
-    ESTUDIO *pestudio = (ESTUDIO *) calloc(initsize, sizeof(ESTUDIO));
-    parray_estudios->size_estudios = initsize;
-    parray_estudios->n_estudios = 0;
-    parray_estudios->pestudios = pestudio;
-    pedf->estudios.pestudios = parray_estudios->pestudios;
-    pedf->estudios.size_estudios = parray_estudios->size_estudios;
-    pedf->estudios.n_estudios = parray_estudios->n_estudios;
-}
-
 void print_edificios(LISTA_EDIFICIOS *listaEdificios) {
     EDIFICIO *aux = listaEdificios->pedificios;
     printf("N edificios %d\n", listaEdificios->n_edificios);
@@ -148,19 +136,30 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios) {
         aux = aux->edf_next;
     }
 }
+ARRAY_ESTUDIOS * create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
+    ARRAY_ESTUDIOS *parray_estudios = (ARRAY_ESTUDIOS *) calloc(1, sizeof(ARRAY_ESTUDIOS));
+    parray_estudios->size_estudios = initsize;
+    parray_estudios->n_estudios = 0;
+    parray_estudios->pestudios = pedf->estudios.pestudios;
+    return parray_estudios;
+}
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area) {
-    int i = 0;
-    ESTUDIO *pestudio = edificio->estudios.pestudios;
-    for (i = 0; i < edificio->estudios.n_estudios; i++) {
+    int i;
+    ESTUDIO *pestudio = (ESTUDIO *) calloc(1, sizeof(ESTUDIO));
+
+    for (i = 0; i < edificio->estudios.size_estudios; i++) {
         if (pestudio->area == 0) {
+            pestudio->id_estudio = id_estudios++;
             pestudio->numero_porta = porta;
             strcpy(pestudio->config, config);
             pestudio->preco_dia = p_dia;
             pestudio->preco_mensal = p_mes;
             pestudio->preco_final = p_final;
             pestudio->area = area;
+            edificio->estudios.n_estudios++;
+            edificio->estudios.pestudios = pestudio;
             return;
         }
         pestudio++;
@@ -179,6 +178,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
             pestudio->area = 0;
             pestudio++;
         }
+        pestudio->id_estudio = id_estudios++;
         pestudio = edificio->estudios.pestudios + old_size;
         pestudio->numero_porta = porta;
         strcpy(pestudio->config, config);
@@ -186,44 +186,17 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
         pestudio->preco_mensal = p_mes;
         pestudio->preco_final = p_final;
         pestudio->area = area;
+        edificio->estudios.n_estudios++;
+        edificio->estudios.pestudios = pestudio;
     }
 
 }
 
 void print_estudios(EDIFICIO *found_edificio) {
     ESTUDIO *a = found_edificio->estudios.pestudios;
-    for (int j = 0; j < found_edificio->estudios.size_estudios; j++) {
-        printf("ID: %d PORTA: %d CONFIG: %s PREÇO_DIA: %.3f PREÇO_MES: %.3f PREÇO_FINAL: %.3f AREA: %d\n",
+    for (int j = 0; j < found_edificio->estudios.n_estudios; j++) {
+        printf("ID: %d PORTA: %d CONFIG: %s PRECO_DIA: %.3f PRECO_MES: %.3f PRECO_FINAL: %.3f AREA: %d\n",
                a->id_estudio,
                a->numero_porta, a->config, a->preco_dia, a->preco_mensal, a->preco_final, a->area);
     }
 }
-/*    STUDENT *pstudent = pcs->pstudents;
-    for (i = 0; i < pcs->nstudents; i++) {
-        if (pstudent->pname == NULL) {
-            pstudent->pname = (char *) malloc(strlen(name) + 1);
-            strcpy(pstudent->pname, name);
-            pstudent->number = number;
-            pstudent->grade = grade;
-            return;
-        }
-        pstudent++;
-    }
-    if (i == pcs->nstudents) {
-
-        int old_size = pcs->nstudents, new_size = old_size + 10;
-        pcs->pstudents = (STUDENT *) realloc(pcs->pstudents, new_size * sizeof(STUDENT));
-        pcs->nstudents = new_size;
-        pstudent = pcs->pstudents + old_size;
-        for (i = old_size; i < new_size; ++i) {
-            pstudent->pname = NULL;
-            pstudent->number = 0;
-            pstudent->grade = 0.0f;
-            pstudent++;
-        }
-        pstudent = pcs->pstudents + old_size;
-        pstudent->pname = (char *) malloc(strlen(name) + 1);
-        strcpy(pstudent->pname, name);
-        pstudent->number = number;
-        pstudent->grade = grade;
-    }*/

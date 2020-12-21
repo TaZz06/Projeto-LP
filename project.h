@@ -172,7 +172,7 @@ change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio,
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 
-void create_dynarray_estudios(EDIFICIO *pedf, int initsize);
+ARRAY_ESTUDIOS * create_dynarray_estudios(EDIFICIO *pedf, int initsize);
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);
