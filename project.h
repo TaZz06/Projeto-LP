@@ -143,8 +143,8 @@ typedef struct lista_hospedes {
 
 int main_project(int argc, const char *argv[]);
 
-void print_edificios(LISTA_EDIFICIOS *listaEdificios);
-void print_estudios(EDIFICIO *found_edificio);
+
+/*---------------------------------------------------[EDIFICIOS]---------------------------------------------------*/
 
 /**
 * Iniciar uma lista de edificios.
@@ -170,21 +170,30 @@ void
 change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio, char morada_edificio[], float latitude,
                      float longitude);
 
-/*------------------------------------------------------------------------------------------------------------------------*/
+void print_edificios(LISTA_EDIFICIOS *listaEdificios);
 
-ARRAY_ESTUDIOS * create_dynarray_estudios(EDIFICIO *pedf, int initsize);
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[ESTUDIOS]---------------------------------------------------*/
+ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize);
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);
 
-ESTUDIO *find_estudio(const EDIFICIO *edificio, int id_estudio);
+ESTUDIO *find_estudio(const EDIFICIO *found_edificio, int numero_porta);
 
-void remove_estudio_ordered(EDIFICIO *edificio, ESTUDIO *found_estudio);
+void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio);
 
 void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                          float p_mes, float p_final, int area);
 
-/*------------------------------------------------------------------------------------------------------------------------*/
+void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio);
+
+void print_estudios(EDIFICIO *found_edificio);
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[AGENDAS]---------------------------------------------------*/
 
 void insert_agenda(ESTUDIO *estudio, char plataforma[], int size_dias);
 
@@ -194,7 +203,9 @@ void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda);
 
 void change_agenda_info(AGENDA *found_agenda, char plataforma[]);
 
-/*------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[DIAS]---------------------------------------------------*/
 
 void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano, int size_eventos);
 
@@ -204,7 +215,9 @@ void remove_dia(AGENDA *agenda, DIA *found_dia);
 
 void change_dia_info(DIA *found_dia, int dia, int mes, int ano);
 
-/*------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[EVENTOS]---------------------------------------------------*/
 
 void insert_evento(DIA *found_dia, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
@@ -213,5 +226,10 @@ EVENTO *find_evento(const DIA *found_dia, int id_evento);
 void remove_evento(DIA *found_dia, EVENTO *found_evento);
 
 void change_evento_info(EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[--]---------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------------------*/
 
 #endif //PROJETO_LP_PROJECT_H
