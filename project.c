@@ -40,6 +40,17 @@ int main_project(int argc, const char *argv[]) {
     print_estudios(findEd);
     printf("\n");
     insert_estudio_ordered(findEd,412,T3,3,90,700,0,300);
+    print_estudios(findEd);
+    printf("\n");
+    insert_estudio_ordered(findEd,414,T3,3,90,700,0,300);
+    print_estudios(findEd);
+    printf("\n");
+    ESTUDIO *found_estudio2 = find_estudio(findEd, 412);
+    remove_estudio_ordered(findEd,found_estudio2);
+    print_estudios(findEd);
+    printf("\n");
+    insert_estudio_ordered(findEd,415,T3,3,90,700,0,300);
+    print_estudios(findEd);
 
 
     //printf("PORTA: %d ID: %d", found_estudio->numero_porta, found_estudio->id_estudio);
@@ -177,7 +188,6 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
     int i;
     ESTUDIO *pestudio = edificio->estudios.pestudios;
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
-        printf("%d\n", i);
         if (pestudio->preco_dia == 0) {
             pestudio->id_estudio = id_estudios++;
             pestudio->numero_porta = porta;
@@ -187,6 +197,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
             pestudio->preco_final = p_final;
             pestudio->area = area;
             edificio->estudios.n_estudios++;
+            pestudio = edificio->estudios.pestudios - edificio->estudios.n_estudios;
             sort_estudios(pestudio, edificio);
             return;
         }
@@ -254,7 +265,7 @@ void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio) {
     while (i !=found_edificio->estudios.n_estudios) {
         if((i + 1) == found_edificio->estudios.n_estudios){
             found_estudio->numero_porta = 0;
-            strcpy( found_estudio->config, EMPTY);
+            strcpy(found_estudio->config, EMPTY);
             found_estudio->preco_dia = 0.0f;
             found_estudio->preco_mensal = 0.0f;
             found_estudio->preco_final = 0.0f;
