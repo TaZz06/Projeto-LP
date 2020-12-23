@@ -19,7 +19,7 @@ int main_project(int argc, const char *argv[]) {
     insert_edificio_ordered(le, "z", -123, 495, size);
     insert_edificio_ordered(le, "a", -0.4, 90, size);
     insert_edificio_ordered(le, "b", -0.04, 56, size);
-    print_edificios(le);
+    //print_edificios(le);
 
     EDIFICIO *findEd = find_edificio(le, 1);
     insert_estudio_ordered(findEd, 121, T0, 3, 50, 600, 0, 120);
@@ -34,10 +34,13 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(findEd, 111, T2, 3, 50, 600, 0, 120);
     insert_estudio_ordered(findEd, 145, T4, 3, 50, 600, 0, 120);
     print_estudios(findEd);
+    printf("%d - %d\n", findEd->estudios.n_estudios, findEd->estudios.size_estudios);
     printf("\n");
     ESTUDIO *found_estudio = find_estudio(findEd, 132);
     remove_estudio_ordered(findEd,found_estudio);
     print_estudios(findEd);
+    printf("%d - %d\n", findEd->estudios.n_estudios, findEd->estudios.size_estudios);
+
     printf("\n");
     insert_estudio_ordered(findEd,412,T3,3,90,700,0,300);
     print_estudios(findEd);
@@ -45,9 +48,9 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(findEd,414,T3,3,90,700,0,300);
     print_estudios(findEd);
     printf("\n");
-    ESTUDIO *found_estudio2 = find_estudio(findEd, 412);
-    remove_estudio_ordered(findEd,found_estudio2);
-    print_estudios(findEd);
+    /*found_estudio = find_estudio(findEd, 412);
+    remove_estudio_ordered(findEd,found_estudio);
+    print_estudios(findEd);*/
     printf("\n");
     insert_estudio_ordered(findEd,415,T3,3,90,700,0,300);
     print_estudios(findEd);
@@ -180,15 +183,31 @@ ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
     parray_estudios->size_estudios = initsize;
     parray_estudios->n_estudios = 0;
     parray_estudios->pestudios = (ESTUDIO *) calloc(initsize, sizeof(ESTUDIO));
+
     return parray_estudios;
 }
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area) {
     int i;
+
     ESTUDIO *pestudio = edificio->estudios.pestudios;
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
-        if (pestudio->preco_dia == 0) {
+
+        if (edificio->estudios.n_estudios == edificio->estudios.size_estudios) {
+            printf("ola");
+            int old_size = edificio->estudios.size_estudios;
+            int new_size = old_size + 10;
+            ARRAY_ESTUDIOS * aux = (ARRAY_ESTUDIOS *)calloc(1, sizeof(ARRAY_ESTUDIOS));
+            aux->pestudios = (ESTUDIO*)calloc(new_size, sizeof(ESTUDIO));
+            for (int j = 0; j < edificio->estudios.size_estudios; j++){
+                aux->pestudios[j] = pestudio[j];
+            }
+            pestudio = aux->pestudios;
+            edificio->estudios.size_estudios = new_size;
+        }
+
+        if (pestudio->numero_porta == 0) {
             pestudio->id_estudio = id_estudios++;
             pestudio->numero_porta = porta;
             strcpy(pestudio->config, config);
@@ -197,53 +216,34 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
             pestudio->preco_final = p_final;
             pestudio->area = area;
             edificio->estudios.n_estudios++;
-            pestudio = edificio->estudios.pestudios - edificio->estudios.n_estudios;
+
             sort_estudios(pestudio, edificio);
             return;
         }
         pestudio++;
     }
-
-    if (i == edificio->estudios.size_estudios) {
-        int old_size = edificio->estudios.size_estudios;
-        int new_size = old_size + 10;
-        edificio->estudios.pestudios = (ESTUDIO *) realloc(edificio->estudios.pestudios, new_size * sizeof(ESTUDIO));
-        edificio->estudios.size_estudios = new_size;
-        for (i = old_size + 1; i < new_size; ++i) {
-            pestudio->numero_porta = 0;
-            strcpy(pestudio->config, EMPTY);
-            pestudio->preco_dia = 0.0f;
-            pestudio->preco_mensal = 0.0f;
-            pestudio->preco_final = 0.0f;
-            pestudio->area = 0;
-        }
-        pestudio = edificio->estudios.pestudios + old_size;
-        pestudio->id_estudio = id_estudios++;
-        pestudio->numero_porta = porta;
-        strcpy(pestudio->config, config);
-        pestudio->preco_dia = p_dia;
-        pestudio->preco_mensal = p_mes;
-        pestudio->preco_final = p_final;
-        pestudio->area = area;
-        edificio->estudios.n_estudios++;
-        pestudio = edificio->estudios.pestudios - old_size;
-        sort_estudios(pestudio, edificio);
-    }
 }
 
 void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio) {
-    for (int j = 0; j < edificio->estudios.size_estudios; ++j) {
-        if (pestudio[j].numero_porta > pestudio[j + 1].numero_porta) {
-            ESTUDIO aux = pestudio[j];
-            pestudio[j] = pestudio[j + 1];
-            pestudio[j + 1] = aux;
+    int i, j;
+    for (i = 1; i < edificio->estudios.size_estudios; i++) {
+        ESTUDIO key = pestudio[i];
+        j = i - 1;
+
+        /* Move elements of arr[0..i-1], that are
+          greater than key, to one position ahead
+          of their current position */
+        while (j >= 0 && pestudio[j].numero_porta > key.numero_porta) {
+            pestudio[j + 1] = pestudio[j];
+            j = j - 1;
         }
+        pestudio[j + 1] = key;
     }
 }
 
 void print_estudios(EDIFICIO *found_edificio) {
     ESTUDIO *a = found_edificio->estudios.pestudios;
-    for (int j = 0; j < found_edificio->estudios.n_estudios; j++) {
+    for (int j = 0; j < found_edificio->estudios.size_estudios; j++) {
         printf("ID: %d PORTA: %d CONFIG: %s PRECO_DIA: %.3f PRECO_MES: %.3f PRECO_FINAL: %.3f AREA: %d\n",
                a->id_estudio,
                a->numero_porta, a->config, a->preco_dia, a->preco_mensal, a->preco_final, a->area);
@@ -263,7 +263,7 @@ ESTUDIO *find_estudio(const EDIFICIO *found_edificio, int numero_porta) {
 void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio) {
     int i = 0;
     while (i !=found_edificio->estudios.n_estudios) {
-        if((i + 1) == found_edificio->estudios.n_estudios){
+        if((i + 1) == found_edificio->estudios.n_estudios || found_estudio++ == NULL ){
             found_estudio->numero_porta = 0;
             strcpy(found_estudio->config, EMPTY);
             found_estudio->preco_dia = 0.0f;
