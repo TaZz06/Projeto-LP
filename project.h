@@ -199,7 +199,7 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize);
 
 void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias);
 
-AGENDA *find_agenda(const ESTUDIO *estudio, int id_agenda);
+AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda);
 
 void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda);
 
