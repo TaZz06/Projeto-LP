@@ -175,7 +175,7 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios);
 /*----------------------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------[ESTUDIOS]---------------------------------------------------*/
-ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize);
+ARRAY_ESTUDIOS *create_dynarray_estudios(int initsize);
 
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);

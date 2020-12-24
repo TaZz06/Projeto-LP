@@ -36,7 +36,7 @@ int main_project(int argc, const char *argv[]) {
     print_estudios(findEd);
     printf("%d - %d\n", findEd->estudios.n_estudios, findEd->estudios.size_estudios);
     printf("\n");
-    ESTUDIO *found_estudio = find_estudio(findEd, 132);
+    /*ESTUDIO *found_estudio = find_estudio(findEd, 132);
     remove_estudio_ordered(findEd,found_estudio);
     print_estudios(findEd);
     printf("%d - %d\n", findEd->estudios.n_estudios, findEd->estudios.size_estudios);
@@ -47,13 +47,13 @@ int main_project(int argc, const char *argv[]) {
     printf("\n");
     insert_estudio_ordered(findEd,414,T3,3,90,700,0,300);
     print_estudios(findEd);
-    printf("\n");
+    printf("\n");*/
     /*found_estudio = find_estudio(findEd, 412);
     remove_estudio_ordered(findEd,found_estudio);
     print_estudios(findEd);*/
-    printf("\n");
+    /*printf("\n");
     insert_estudio_ordered(findEd,415,T3,3,90,700,0,300);
-    print_estudios(findEd);
+    print_estudios(findEd);*/
 
 
     //printf("PORTA: %d ID: %d", found_estudio->numero_porta, found_estudio->id_estudio);
@@ -85,7 +85,7 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edifi
     strcpy(e->edf_morada, morada_edificio);
     e->latitude = latitude;
     e->longitude = longitude;
-    ARRAY_ESTUDIOS *ea = create_dynarray_estudios(e, size_estudios);
+    ARRAY_ESTUDIOS *ea = create_dynarray_estudios(size_estudios);
     e->estudios = *ea;
     e->edf_next = NULL;
 
@@ -178,7 +178,7 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios) {
 
 /*---------------------------------------------------[ESTUDIOS]---------------------------------------------------*/
 
-ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
+ARRAY_ESTUDIOS *create_dynarray_estudios(int initsize) {
     ARRAY_ESTUDIOS *parray_estudios = (ARRAY_ESTUDIOS *) calloc(1, sizeof(ARRAY_ESTUDIOS));
     parray_estudios->size_estudios = initsize;
     parray_estudios->n_estudios = 0;
@@ -190,21 +190,15 @@ ARRAY_ESTUDIOS *create_dynarray_estudios(EDIFICIO *pedf, int initsize) {
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area) {
     int i;
-
     ESTUDIO *pestudio = edificio->estudios.pestudios;
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
 
         if (edificio->estudios.n_estudios == edificio->estudios.size_estudios) {
-            printf("ola");
             int old_size = edificio->estudios.size_estudios;
             int new_size = old_size + 10;
-            ARRAY_ESTUDIOS * aux = (ARRAY_ESTUDIOS *)calloc(1, sizeof(ARRAY_ESTUDIOS));
-            aux->pestudios = (ESTUDIO*)calloc(new_size, sizeof(ESTUDIO));
-            for (int j = 0; j < edificio->estudios.size_estudios; j++){
-                aux->pestudios[j] = pestudio[j];
-            }
-            pestudio = aux->pestudios;
+            edificio->estudios.pestudios = (ESTUDIO *) realloc(pestudio,new_size * sizeof(ESTUDIO));
             edificio->estudios.size_estudios = new_size;
+            pestudio = edificio->estudios.pestudios - old_size + 1;
         }
 
         if (pestudio->numero_porta == 0) {
@@ -243,7 +237,7 @@ void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio) {
 
 void print_estudios(EDIFICIO *found_edificio) {
     ESTUDIO *a = found_edificio->estudios.pestudios;
-    for (int j = 0; j < found_edificio->estudios.size_estudios; j++) {
+    for (int j = 0; j < found_edificio->estudios.n_estudios; j++) {
         printf("ID: %d PORTA: %d CONFIG: %s PRECO_DIA: %.3f PRECO_MES: %.3f PRECO_FINAL: %.3f AREA: %d\n",
                a->id_estudio,
                a->numero_porta, a->config, a->preco_dia, a->preco_mensal, a->preco_final, a->area);
