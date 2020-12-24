@@ -206,27 +206,28 @@ void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG
             pestudio->preco_final = p_final;
             pestudio->area = area;
             edificio->estudios.n_estudios++;
-            sort_estudios(pestudio, edificio);
+            sort_estudios(edificio);
             return;
         }
         pestudio++;
     }
 }
 
-void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio) {
+void sort_estudios(EDIFICIO *edificio) {
     int i, j;
-    for (i = 0; i < edificio->estudios.size_estudios; i++) {
-        ESTUDIO key = pestudio[i];
+    ESTUDIO *EdfEstudios = edificio->estudios.pestudios;
+    for (i = 0; i < edificio->estudios.n_estudios; i++) {
+        ESTUDIO key = EdfEstudios[i];
         j = i - 1;
 
         /* Move elements of arr[0..i-1], that are
         greater than key, to one position ahead
         of their current position */
-        while (j >= 0 && pestudio[j].numero_porta > key.numero_porta) {
-            pestudio[j + 1] = pestudio[j];
+        while (j >= 0 && EdfEstudios[j].numero_porta > key.numero_porta) {
+            EdfEstudios[j + 1] = EdfEstudios[j];
             j = j - 1;
         }
-        pestudio[j + 1] = key;
+        EdfEstudios[j + 1] = key;
     }
 }
 

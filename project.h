@@ -187,7 +187,7 @@ void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio);
 void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                          float p_mes, float p_final, int area);
 
-void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio);
+void sort_estudios(EDIFICIO *edificio);
 
 void print_estudios(const EDIFICIO *found_edificio);
 
