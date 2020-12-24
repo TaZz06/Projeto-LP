@@ -189,7 +189,7 @@ void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFI
 
 void sort_estudios(ESTUDIO *pestudio, EDIFICIO *edificio);
 
-void print_estudios(EDIFICIO *found_edificio);
+void print_estudios(const EDIFICIO *found_edificio);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
