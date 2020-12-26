@@ -34,11 +34,17 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(findEd, 129, T4, 3, 50, 600, 0, 120);
     insert_estudio_ordered(findEd, 111, T2, 3, 50, 600, 0, 120);
     insert_estudio_ordered(findEd, 145, T4, 3, 50, 600, 0, 120);*/
-   ESTUDIO *found_estudio = find_estudio(findEd, 122);
-    insert_agenda(found_estudio, "Aaster", 5);
-    insert_agenda(found_estudio, "Baster", 5);
-    insert_agenda(found_estudio, "Caster", 5);
-    insert_agenda(found_estudio, "Daster", 5);
+   ESTUDIO *found_estudio = find_estudio(findEd, 121);
+    insert_agenda(found_estudio, "Aaster", 30);
+    insert_agenda(found_estudio, "Baster", 30);
+    insert_agenda(found_estudio, "Caster", 30);
+    insert_agenda(found_estudio, "Daster", 30);
+    insert_agenda(found_estudio, "Taster", 30);
+    insert_agenda(found_estudio, "Gaster", 30);
+    insert_agenda(found_estudio, "Faster", 30);
+    insert_agenda(found_estudio, "Raster", 30);
+    insert_agenda(found_estudio, "Easter", 30);
+    insert_agenda(found_estudio, "Jaster", 30);
 
     print_agendas(found_estudio);
     AGENDA *found_agenda = find_agenda(found_estudio, 2);
@@ -273,24 +279,23 @@ void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio) {
 ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
     ARRAY_AGENDAS *parray_agendas = (ARRAY_AGENDAS *) calloc(1, sizeof(ARRAY_AGENDAS));
     parray_agendas->size_agendas = initsize;
-    parray_agendas->pagendas = (AGENDA*)calloc(100, sizeof(AGENDA));
+    parray_agendas->pagendas = (AGENDA*)calloc(100, sizeof(AGENDA)); //Todo Este caralho <-
+
     return parray_agendas;
 }
 
 void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
     ARRAY_AGENDAS *arrayAgendas = &found_estudio->agendas;
-    AGENDA *pagenda = found_estudio->agendas.pagendas;
+    AGENDA *pagenda = arrayAgendas->pagendas;
     for (int i = 0; i < arrayAgendas->size_agendas; i++) {
         if (arrayAgendas->n_agendas == arrayAgendas->size_agendas) {
             int old_size = arrayAgendas->size_agendas;
-            int new_size = old_size + 10;
+            int new_size = old_size * 5; //Todo arranjar esta merda de oldsize ou o NumOfElements do calloc em cima, onde esta o caralho.
             pagenda = (AGENDA *) realloc(pagenda, new_size * sizeof(AGENDA));
             arrayAgendas->size_agendas = new_size;
-            pagenda += old_size;
         }
-        if (pagenda->id_agenda == 0){
+        if (arrayAgendas->n_agendas == 0){
             pagenda->id_agenda = id_agendas++;
-            pagenda->plataforma = (char*)malloc(strlen(plataforma)+1);
             pagenda->plataforma = plataforma;
             ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
             pagenda->dias = *arrayDias;
@@ -298,6 +303,15 @@ void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
             return;
         }
         pagenda++;
+        if (pagenda->id_agenda == 0 && arrayAgendas->n_agendas != 0){
+            pagenda->id_agenda = id_agendas++;
+            pagenda->plataforma = plataforma;
+            ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
+            pagenda->dias = *arrayDias;
+            arrayAgendas->n_agendas++;
+            return;
+        }
+
     }
 }
 
@@ -312,7 +326,7 @@ AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda){
 
 void print_agendas(const ESTUDIO *found_estudio) {
     AGENDA *agenda = found_estudio->agendas.pagendas;
-    for (int j = 0; j < found_estudio->agendas.size_agendas; j++) {
+    for (int j = 0; j < found_estudio->agendas.n_agendas; j++) {
         printf("Id: %d Plataforma: %s\n", agenda->id_agenda, agenda->plataforma);
         agenda++;
     }
