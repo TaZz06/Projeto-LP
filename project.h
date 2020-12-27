@@ -184,7 +184,7 @@ ESTUDIO *find_estudio(const EDIFICIO *found_edificio, int numero_porta);
 
 void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio);
 
-void change_estudio_info(ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
+void change_estudio_info(EDIFICIO * edificio, ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                          float p_mes, float p_final, int area);
 
 void sort_estudios(EDIFICIO *edificio);
@@ -203,7 +203,9 @@ AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda);
 
 void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda);
 
-void change_agenda_info(AGENDA *found_agenda, char plataforma[]);
+void change_agenda_info(ESTUDIO *found_estudio, AGENDA *found_agenda, char plataforma[]);
+
+void sort_agendas(ESTUDIO *found_estudio);
 
 void print_agendas(const ESTUDIO *found_estudio);
 
