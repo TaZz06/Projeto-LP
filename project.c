@@ -38,11 +38,11 @@ int main_project(int argc, const char *argv[]) {
     //change_estudio_info(findEd, found_estudio, 133, T3, 4, 60, 200, 10, 130);
     print_estudios(findEd);
 
-    //save_edificios_txt(le, "D:\\ProgramacaoGit\\GitHub\\Projeto-LP\\ficheirostxt\\arquivoEdificio.txt");
+    save_edificios_txt(le, "D:\\ProgramacaoGit\\GitHub\\Projeto-LP\\ficheirostxt\\arquivoEdificio.txt");
 
     insert_agenda(found_estudio, "Master", 3);
-    /*insert_agenda(found_estudio, "Haster", 30);
-    insert_agenda(found_estudio, "Naster", 30);
+    insert_agenda(found_estudio, "Haster", 3);
+    /*insert_agenda(found_estudio, "Naster", 30);
     insert_agenda(found_estudio, "Daster", 30);
     insert_agenda(found_estudio, "Kaster", 30);
     insert_agenda(found_estudio, "Taster", 30);
@@ -53,16 +53,21 @@ int main_project(int argc, const char *argv[]) {
     insert_agenda(found_estudio, "Jaster", 30);*/
 
     //print_agendas(found_estudio);
-    AGENDA *found_agenda = find_agenda(found_estudio, 0);
+    AGENDA *found_agenda = find_agenda(found_estudio, 1);
     /*printf("%s\n", found_agenda->plataforma);
     remove_agenda(found_estudio, found_agenda);
     print_agendas(found_estudio);
     printf("\n");*/
     insert_dia(found_agenda, 10, 03, 2022);
-    insert_dia(found_agenda, 01, 01, 2021);
-    insert_dia(found_agenda, 02, 01, 2021);
-    insert_dia(found_agenda, 04, 02, 2022);
-    insert_dia(found_agenda, 05, 1, 2021);
+    insert_dia(found_agenda, 1, 01, 2021);
+    insert_dia(found_agenda, 2, 01, 2021);
+    insert_dia(found_agenda, 4, 02, 2022);
+    insert_dia(found_agenda, 5, 1, 2021);
+    insert_dia(found_agenda, 9, 03, 2022);
+    insert_dia(found_agenda, 1, 01, 2021);
+    insert_dia(found_agenda, 14, 01, 2021);
+    insert_dia(found_agenda, 20, 02, 2022);
+    insert_dia(found_agenda, 30, 1, 2021);
     print_dias(found_agenda);
 
     return 0;
@@ -179,18 +184,18 @@ void save_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
         return;
     }
     for (int i = 0; i < listaEdificios->n_edificios; i++) {
-        EDIFICIO *findEd = find_edificio(listaEdificios, i);
+        EDIFICIO *ed = find_edificio(listaEdificios, listaEdificios->pedificios->id_edificio);
         fprintf(arquivoEdificios,
                 "Id: %d | Morada: %s | Latitude: %.3f | Longitude: %.3f\n",
-                findEd->id_edificio,
-                findEd->edf_morada, findEd->latitude, findEd->longitude);
-        ESTUDIO *a = findEd->estudios.pestudios;
-        for(int j = 0; j <findEd->estudios.n_estudios; j++){
+                ed->id_edificio,
+                ed->edf_morada, ed->latitude, ed->longitude);
+        ESTUDIO *a = ed->estudios.pestudios;
+        for(int j = 0; j < ed->estudios.n_estudios; j++){
             fprintf(arquivoEdificios, "\tID: %d | PORTA: %d | CONFIG: %s | PRECO_DIA: %.3f | PRECO_MES: %.3f | PRECO_FINAL: %.3f | AREA: %d\n", a->id_estudio,
                     a->numero_porta, a->config, a->preco_dia, a->preco_mensal, a->preco_final, a->area);
             a++;
         }
-        findEd = findEd->edf_next;
+        listaEdificios->pedificios = listaEdificios->pedificios->edf_next;
     }
     fclose(arquivoEdificios);
     printf("Sucesso\n");
@@ -477,7 +482,7 @@ void sort_dias(AGENDA *found_agenda) {
 
 void print_dias(const AGENDA *found_agenda) {
     DIA *dia = found_agenda->dias.dias;
-    for (int i = 0; i < found_agenda->dias.n_dias; i++) {
+    for (int i = 0; i < found_agenda->dias.size_dias; i++) {
         printf("DIA:%d MES:%d ANO:%d\n", dia->dia, dia->mes, dia->ano);
         dia++;
     }
