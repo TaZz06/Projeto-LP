@@ -215,13 +215,17 @@ void print_agendas(const ESTUDIO *found_estudio);
 
 ARRAY_DIAS *create_dynarray_dias(int initsize);
 
-void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano, int size_eventos);
+void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano);
 
 DIA *find_dia(const AGENDA *agenda, int dia, int mes, int ano);
 
 void remove_dia(AGENDA *agenda, DIA *found_dia);
 
 void change_dia_info(DIA *found_dia, int dia, int mes, int ano);
+
+void sort_dias(AGENDA *found_agenda);
+
+void print_dias(const AGENDA *found_agenda);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
@@ -234,6 +238,8 @@ EVENTO *find_evento(const DIA *found_dia, int id_evento);
 void remove_evento(DIA *found_dia, EVENTO *found_evento);
 
 void change_evento_info(EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+
+LISTA_EVENTOS *create_lista_eventos(void);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
