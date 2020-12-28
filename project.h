@@ -180,7 +180,7 @@ ARRAY_ESTUDIOS *create_dynarray_estudios(int initsize);
 void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);
 
-ESTUDIO *find_estudio(const EDIFICIO *found_edificio, int numero_porta);
+ESTUDIO *find_estudio(const EDIFICIO *found_edificio, int n, int numero_porta);
 
 void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio);
 
@@ -188,6 +188,8 @@ void change_estudio_info(EDIFICIO * edificio, ESTUDIO *found_estudio, int porta,
                          float p_mes, float p_final, int area);
 
 void sort_estudios(EDIFICIO *edificio);
+
+void save_edificios_txt(LISTA_EDIFICIOS * listaEdificios, char filename[]);
 
 void print_estudios(const EDIFICIO *found_edificio);
 
