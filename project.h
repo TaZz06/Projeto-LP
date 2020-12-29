@@ -175,6 +175,10 @@ void save_edificios_txt(LISTA_EDIFICIOS * listaEdificios, char filename[]);
 
 void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
+void save_edificios_bin(LISTA_EDIFICIOS * listaEdificios, char filename[]);
+
+void read_edificios_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+
 void print_edificios(LISTA_EDIFICIOS *listaEdificios);
 
 /*----------------------------------------------------------------------------------------------------------------*/

@@ -14,15 +14,15 @@ int main_project(int argc, const char *argv[]) {
     int size = 10;
 
     LISTA_EDIFICIOS *le = create_lista_edificios();
-    /*insert_edificio_ordered(le,id_edificios, "f", -12, 3, size);
-    insert_edificio_ordered(le,id_edificios, "o", -125453, 434125, size);
-    insert_edificio_ordered(le,id_edificios, "k", -13213, 478785, size);
-    insert_edificio_ordered(le,id_edificios, "z", -123, 495, size);
-    insert_edificio_ordered(le,id_edificios, "a", -0.4, 90, size);
-    insert_edificio_ordered(le,id_edificios, "b", -0.04, 56, size);*/
-    //print_edificios(le);
+    /*insert_edificio_ordered(le, id_edificios, "f", -12, 3, size);
+    insert_edificio_ordered(le, id_edificios, "o", -125453, 434125, size);
+    insert_edificio_ordered(le, id_edificios, "k", -13213, 478785, size);
+    insert_edificio_ordered(le, id_edificios, "z", -123, 495, size);
+    insert_edificio_ordered(le, id_edificios, "a", -0.4, 90, size);
+    insert_edificio_ordered(le, id_edificios, "b", -0.04, 56, size);
+    print_edificios(le);
 
-    /*EDIFICIO *findEd = find_edificio(le, 1);
+    EDIFICIO *findEd = find_edificio(le, 1);
     insert_estudio_ordered(findEd, id_estudios, 121, T0, 3, 50, 600, 0, 120);
     insert_estudio_ordered(findEd, id_estudios, 122, T1, 3, 50, 600, 0, 120);
     insert_estudio_ordered(findEd, id_estudios, 123, T2, 3, 50, 600, 0, 120);*/
@@ -37,10 +37,17 @@ int main_project(int argc, const char *argv[]) {
     //ESTUDIO *found_estudio = find_estudio(findEd, findEd->estudios.n_estudios, 121);
     //change_estudio_info(findEd, found_estudio, 133, T3, 4, 60, 200, 10, 130);
     //print_estudios(findEd);
-    char filename[] = "ficheirostxt/arquivoEdificio.txt";
-    //save_edificios_txt(le, filename);
-    read_edificios_txt(le, filename);
-    //print_edificios(le);
+    char file_EdfEst_TXT[] = "../data/ficheirostxt/EdfEst_TXT.txt";
+    char file_EdfEst_BIN[] = "../data/ficheirostxt/EdfEst_BIN.txt";
+    //save_edificios_txt(le, file_EdfEst_TXT);
+    //read_edificios_txt(le, file_EdfEst_TXT);
+    //save_edificios_bin(le, file_EdfEst_BIN);
+    read_edificios_bin(le, file_EdfEst_BIN);
+    print_edificios(le);
+    EDIFICIO *findEd = find_edificio(le, 1);
+    print_estudios(findEd);
+
+
 
     /*insert_agenda(found_estudio, "Master", 3);
     insert_agenda(found_estudio, "Haster", 3);
@@ -89,7 +96,7 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int id_edificio, 
                              float longitude,
                              int size_estudios) {
     EDIFICIO *edificio = (EDIFICIO *) calloc(1, sizeof(EDIFICIO));
-    edificio->id_edificio = id_edificios++;
+    edificio->id_edificio = id_edificio;
     edificio->edf_morada = (char *) malloc(sizeof(char) * strlen(morada_edificio) + 1);
     strcpy(edificio->edf_morada, morada_edificio);
     edificio->latitude = latitude;
@@ -232,10 +239,94 @@ void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
             insert_estudio_ordered(e, id_estudios, porta, aux2, size, p_dia, p_mes, p_final,
                                    area);
         }
-        print_edificios(listaEdificios);
+        //print_edificios(listaEdificios);
         print_estudios(e);
     }
     fclose(arquivoEdificios);
+}
+
+void save_edificios_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
+    FILE *fileEdfEst = NULL;
+
+    if ((fileEdfEst = fopen(filename, "wb")) == NULL) {
+        printf("Erro %s\n", filename);
+        return;
+    }
+    fwrite(&listaEdificios->n_edificios, sizeof(int), 1, fileEdfEst);
+    EDIFICIO *edf = find_edificio(listaEdificios, listaEdificios->pedificios->id_edificio);
+
+    for (int i = 0; i < listaEdificios->n_edificios; i++) {
+        fwrite(&edf->id_edificio, sizeof(int), 1, fileEdfEst);
+        int size_morada = strlen(edf->edf_morada) + 1;
+        fwrite(&size_morada, sizeof(int), 1, fileEdfEst);
+        fwrite(edf->edf_morada, sizeof(char), size_morada, fileEdfEst);
+        fwrite(&edf->latitude, sizeof(float), 1, fileEdfEst);
+        fwrite(&edf->longitude, sizeof(float), 1, fileEdfEst);
+        fwrite(&edf->estudios.size_estudios, sizeof(int), 1, fileEdfEst);
+
+        ESTUDIO *a = edf->estudios.pestudios;
+        fwrite(&edf->estudios.n_estudios, sizeof(int), 1, fileEdfEst);
+        for (int j = 0; j < edf->estudios.n_estudios; j++) {
+            fwrite(&a->id_estudio, sizeof(int), 1, fileEdfEst);
+            fwrite(&a->numero_porta, sizeof(int), 1, fileEdfEst);
+            int size_config = strlen(a->config) + 1;
+            fwrite(&size_config, sizeof(int), 1, fileEdfEst);
+            fwrite(a->config, sizeof(char), size_config, fileEdfEst);
+            fwrite(&a->agendas.size_agendas, sizeof(int), 1, fileEdfEst);
+            fwrite(&a->preco_dia, sizeof(float), 1, fileEdfEst);
+            fwrite(&a->preco_mensal, sizeof(float), 1, fileEdfEst);
+            fwrite(&a->preco_final, sizeof(float), 1, fileEdfEst);
+            fwrite(&a->area, sizeof(int), 1, fileEdfEst);
+            a++;
+        }
+        edf = edf->edf_next;
+    }
+    fclose(fileEdfEst);
+    printf("Sucesso\n");
+}
+
+void read_edificios_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
+    FILE *fileEdfEst = NULL;
+    if ((fileEdfEst = fopen(filename, "rb")) == NULL) {
+        printf("Erro %s\n", filename);
+        return;
+    }
+    int nEdf;
+    fread(&nEdf, sizeof(int), 1, fileEdfEst);
+    for (int i = 0; i < nEdf; ++i) {
+        int idEdf = 0, size_morada = 0, size_estudios = 0, n_estudios = 0;
+        float latitude = 0, longitude = 0;
+        char morada[200];
+        fread(&idEdf, sizeof(int), 1, fileEdfEst);
+        fread(&size_morada, sizeof(int), 1, fileEdfEst);
+        fread(morada, sizeof(char), size_morada, fileEdfEst);
+        fread(&latitude, sizeof(float), 1, fileEdfEst);
+        fread(&longitude, sizeof(float), 1, fileEdfEst);
+        fread(&size_estudios, sizeof(int), 1, fileEdfEst);
+
+        insert_edificio_ordered(listaEdificios, idEdf, morada, latitude, longitude, size_estudios);
+        EDIFICIO *found_edf = find_edificio(listaEdificios, idEdf);
+        fread(&n_estudios, sizeof(int), 1, fileEdfEst);
+        for (int j = 0; j < n_estudios; ++j) {
+            int idEst = 0, n_porta = 0, size_config = 0, size_agendas = 0, area = 0;
+            float preco_dia = 0, preco_mes = 0, preco_final = 0;
+            char config[3];
+            fread(&idEst, sizeof(int), 1, fileEdfEst);
+            fread(&n_porta, sizeof(int), 1, fileEdfEst);
+            fread(&size_config, sizeof(int), 1, fileEdfEst);
+            fread(config, sizeof(char), size_config, fileEdfEst);
+            fread(&size_agendas, sizeof(int), 1, fileEdfEst);
+            fread(&preco_dia, sizeof(float), 1, fileEdfEst);
+            fread(&preco_mes, sizeof(float), 1, fileEdfEst);
+            fread(&preco_final, sizeof(float), 1, fileEdfEst);
+            fread(&area, sizeof(int), 1, fileEdfEst);
+
+            insert_estudio_ordered(found_edf, idEst, n_porta, config, size_agendas, preco_dia, preco_mes, preco_final,
+                                   area);
+        }
+    }
+    fclose(fileEdfEst);
+    printf("Sucesso\n");
 }
 
 void print_edificios(LISTA_EDIFICIOS *listaEdificios) {
@@ -266,6 +357,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char 
                             float p_mes, float p_final, int area) {
     int i;
     ESTUDIO *pestudio = edificio->estudios.pestudios;
+
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
 
         if (edificio->estudios.n_estudios == edificio->estudios.size_estudios) {
@@ -277,7 +369,7 @@ void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char 
         }
 
         if (pestudio->numero_porta == 0) {
-            pestudio->id_estudio = id_estudios++;
+            pestudio->id_estudio = id_estudio;
             pestudio->numero_porta = porta;
             strcpy(pestudio->config, config);
             pestudio->preco_dia = p_dia;
@@ -381,16 +473,22 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 }
 
 void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
-    ARRAY_AGENDAS *arrayAgendas = &found_estudio->agendas;
-    AGENDA *pagenda = arrayAgendas->pagendas;
 
-    for (int i = 0; i <= arrayAgendas->size_agendas; i++) {
-        if (arrayAgendas->n_agendas == arrayAgendas->size_agendas) {
-            int oldsize = arrayAgendas->size_agendas;
+    AGENDA *pagenda = found_estudio->agendas.pagendas;
+
+    for (int i = 0; i <= found_estudio->agendas.size_agendas; i++) {
+
+        if (found_estudio->agendas.n_agendas == found_estudio->agendas.size_agendas) {
+            int oldsize = found_estudio->agendas.size_agendas;
             int newsize = oldsize * 2;
-            pagenda = (AGENDA *) realloc(pagenda, newsize * sizeof(AGENDA));
-            arrayAgendas->size_agendas = newsize;
-            arrayAgendas->pagendas = pagenda;
+            found_estudio->agendas.pagendas = (AGENDA *) realloc(pagenda, newsize * sizeof(AGENDA));
+            found_estudio->agendas.size_agendas = newsize;
+            pagenda = found_estudio->agendas.pagendas + oldsize;
+            for (int j = oldsize; j < newsize; ++j) {
+                pagenda->plataforma = NULL;
+                pagenda++;
+            }
+            pagenda = found_estudio->agendas.pagendas + oldsize;
         }
         if (pagenda->plataforma == NULL) {
             pagenda->id_agenda = id_agendas++;
@@ -398,7 +496,7 @@ void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
             strcpy(pagenda->plataforma, plataforma);
             ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
             pagenda->dias = *arrayDias;
-            arrayAgendas->n_agendas++;
+            found_estudio->agendas.n_agendas++;
             sort_agendas(found_estudio);
             return;
         }
@@ -443,7 +541,6 @@ void sort_agendas(ESTUDIO *found_estudio) {
     for (i = 0; i < arrayAgendas->n_agendas; i++) {
         AGENDA key = agenda[i];
         j = i - 1;
-
         /* Move elements of arr[0..i-1], that are
         greater than key, to one position ahead
         of their current position */
@@ -477,16 +574,15 @@ ARRAY_DIAS *create_dynarray_dias(int initsize) {
 }
 
 void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
-    DIA *pdia = found_agenda->dias.dias;
-    ARRAY_DIAS *arrayDias = &found_agenda->dias;
     int i;
+    DIA *pdia = found_agenda->dias.dias;
     for (i = 0; i <= found_agenda->dias.size_dias; i++) {
-        if (arrayDias->n_dias == arrayDias->size_dias) {
-            int oldsize = arrayDias->size_dias;
+        if (found_agenda->dias.n_dias == found_agenda->dias.size_dias) {
+            int oldsize = found_agenda->dias.size_dias;
             int newsize = oldsize * 2;
-            pdia = (DIA *) realloc(pdia, newsize * sizeof(DIA));
-            arrayDias->size_dias = newsize;
-            arrayDias->dias = pdia;
+            found_agenda->dias.dias = (DIA *) realloc(pdia, newsize * sizeof(DIA));
+            found_agenda->dias.size_dias = newsize;
+            pdia = found_agenda->dias.dias + oldsize;
         }
         if (pdia->dia == 0) {
             pdia->dia = dia;
@@ -494,7 +590,7 @@ void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
             pdia->ano = ano;
             LISTA_EVENTOS *listaEventos = create_lista_eventos();
             pdia->eventos = *listaEventos;
-            arrayDias->n_dias++;
+            found_agenda->dias.n_dias++;
             sort_dias(found_agenda);
             return;
         }
@@ -510,7 +606,9 @@ void sort_dias(AGENDA *found_agenda) {
     for (i = 0; i < arrayDias->n_dias; i++) {
         DIA key = dia[i];
         j = i - 1;
-        while (j >= 0 && dia[j].dia > key.dia && dia[j].mes > key.mes && dia[j].ano > key.ano) {
+        while (j >= 0 && (dia[j].dia > key.dia && dia[j].mes > key.mes && dia[j].ano >= key.ano) &&
+               (dia[j].dia <= key.dia && dia[j].mes <= key.mes && dia[j].ano > key.ano) &&
+               (dia[j].dia > key.dia && dia[j].mes >= key.mes && dia[j].ano >= key.ano)) {
             dia[j + 1] = dia[j];
             j = j - 1;
         }
@@ -535,5 +633,4 @@ LISTA_EVENTOS *create_lista_eventos(void) {
     LISTA_EVENTOS *leventos = (LISTA_EVENTOS *) calloc(1, sizeof(LISTA_EVENTOS));
     leventos->peventos = NULL;
     return leventos;
-
 }
