@@ -240,15 +240,17 @@ void print_dias(const AGENDA *found_agenda);
 
 /*---------------------------------------------------[EVENTOS]---------------------------------------------------*/
 
-void insert_evento(DIA *found_dia, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+LISTA_EVENTOS *create_lista_eventos(void);
+
+void insert_evento(DIA *found_dia, int id_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 EVENTO *find_evento(const DIA *found_dia, int id_evento);
 
 void remove_evento(DIA *found_dia, EVENTO *found_evento);
 
-void change_evento_info(EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
-LISTA_EVENTOS *create_lista_eventos(void);
+void print_eventos(const DIA *found_dia);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 

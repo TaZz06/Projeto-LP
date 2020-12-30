@@ -9,32 +9,33 @@
 int id_edificios = 0;
 int id_estudios = 0;
 int id_agendas = 0;
+int id_eventos = 0;
 
 int main_project(int argc, const char *argv[]) {
     int size = 10;
 
     LISTA_EDIFICIOS *le = create_lista_edificios();
-    /*insert_edificio_ordered(le, id_edificios, "f", -12, 3, size);
-    insert_edificio_ordered(le, id_edificios, "o", -125453, 434125, size);
+    insert_edificio_ordered(le, id_edificios, "f", -12, 3, size);
+    /*insert_edificio_ordered(le, id_edificios, "o", -125453, 434125, size);
     insert_edificio_ordered(le, id_edificios, "k", -13213, 478785, size);
     insert_edificio_ordered(le, id_edificios, "z", -123, 495, size);
     insert_edificio_ordered(le, id_edificios, "a", -0.4, 90, size);
-    insert_edificio_ordered(le, id_edificios, "b", -0.04, 56, size);
-    print_edificios(le);
+    insert_edificio_ordered(le, id_edificios, "b", -0.04, 56, size);*/
+    //print_edificios(le);
 
-    EDIFICIO *findEd = find_edificio(le, 1);
+    EDIFICIO *findEd = find_edificio(le, 0);
     insert_estudio_ordered(findEd, id_estudios, 121, T0, 3, 50, 600, 0, 120);
-    insert_estudio_ordered(findEd, id_estudios, 122, T1, 3, 50, 600, 0, 120);
-    insert_estudio_ordered(findEd, id_estudios, 123, T2, 3, 50, 600, 0, 120);*/
-    /*insert_estudio_ordered(findEd, id_estudios, 113, T4, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 132, T4, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 128, T0, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 127, T1, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 155, T2, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 129, T4, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 111, T2, 3, 50, 600, 0, 120);
-     insert_estudio_ordered(findEd, id_estudios, 145, T4, 3, 50, 600, 0, 120);*/
-    //ESTUDIO *found_estudio = find_estudio(findEd, findEd->estudios.n_estudios, 121);
+    /*insert_estudio_ordered(findEd, id_estudios, 122, T1, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 123, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 113, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 132, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 128, T0, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 127, T1, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 155, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 129, T4, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 111, T2, 3, 50, 600, 0, 120);
+    insert_estudio_ordered(findEd, id_estudios, 145, T4, 3, 50, 600, 0, 120);*/
+    ESTUDIO *found_estudio = find_estudio(findEd, findEd->estudios.n_estudios, 121);
     //change_estudio_info(findEd, found_estudio, 133, T3, 4, 60, 200, 10, 130);
     //print_estudios(findEd);
     char file_EdfEst_TXT[] = "../data/ficheirostxt/EdfEst_TXT.txt";
@@ -42,15 +43,13 @@ int main_project(int argc, const char *argv[]) {
     //save_edificios_txt(le, file_EdfEst_TXT);
     //read_edificios_txt(le, file_EdfEst_TXT);
     //save_edificios_bin(le, file_EdfEst_BIN);
-    read_edificios_bin(le, file_EdfEst_BIN);
-    print_edificios(le);
-    EDIFICIO *findEd = find_edificio(le, 1);
-    print_estudios(findEd);
+    //read_edificios_bin(le, file_EdfEst_BIN);
+    //print_edificios(le);
+    //print_estudios(findEd);
 
 
-
-    /*insert_agenda(found_estudio, "Master", 3);
-    insert_agenda(found_estudio, "Haster", 3);
+    insert_agenda(found_estudio, "Master", 3);
+    /*insert_agenda(found_estudio, "Haster", 3);
     insert_agenda(found_estudio, "Naster", 3);
     insert_agenda(found_estudio, "Daster", 3);
     insert_agenda(found_estudio, "Kaster", 3);
@@ -59,16 +58,16 @@ int main_project(int argc, const char *argv[]) {
     insert_agenda(found_estudio, "Aaster", 3);
     insert_agenda(found_estudio, "Baster", 3);
     insert_agenda(found_estudio, "Easter", 3);
-    insert_agenda(found_estudio, "Jaster", 3);
+    insert_agenda(found_estudio, "Jaster", 3);*/
     print_agendas(found_estudio);
 
-    //AGENDA *found_agenda = find_agenda(found_estudio, 1);*/
+    AGENDA *found_agenda = find_agenda(found_estudio, 0);
     /*printf("%s\n", found_agenda->plataforma);
     remove_agenda(found_estudio, found_agenda);
     print_agendas(found_estudio);
     printf("\n");*/
-    /*insert_dia(found_agenda, 10, 03, 2022);
-    insert_dia(found_agenda, 1, 01, 2021);
+    insert_dia(found_agenda, 10, 03, 2022);
+    /*insert_dia(found_agenda, 1, 01, 2021);
     insert_dia(found_agenda, 2, 01, 2021);
     insert_dia(found_agenda, 4, 02, 2022);
     insert_dia(found_agenda, 5, 1, 2021);
@@ -76,8 +75,28 @@ int main_project(int argc, const char *argv[]) {
     insert_dia(found_agenda, 1, 01, 2021);
     insert_dia(found_agenda, 14, 01, 2021);
     insert_dia(found_agenda, 20, 02, 2022);
-    insert_dia(found_agenda, 30, 1, 2021);
-    print_dias(found_agenda);*/
+    insert_dia(found_agenda, 30, 1, 2021);*/
+    print_dias(found_agenda);
+    DIA *found_dia = find_dia(found_agenda, 10, 03, 2022);
+
+    found_dia->eventos = *create_lista_eventos();
+    insert_evento(found_dia, id_eventos, "Finfa", 10, 3, 5);
+    insert_evento(found_dia, id_eventos, "tinfa", 5, 7, 3);
+    insert_evento(found_dia, id_eventos, "hinfa", 3, 5, 4);
+    insert_evento(found_dia, id_eventos, "ainfa", 12, 31, 9);
+    insert_evento(found_dia, id_eventos, "binfa", 16, 30, 10);
+    insert_evento(found_dia, id_eventos, "kinfa", 1, 29, 11);
+    insert_evento(found_dia, id_eventos, "linfa", 3, 11, 12);
+
+    EVENTO * found_evento = find_evento(found_dia, 2);
+    printf("%s\n", found_evento->nome);
+    print_eventos(found_dia);
+    /*printf("\n");
+    remove_evento(found_dia, found_evento);
+    print_eventos(found_dia);*/
+    /*printf("\n");
+    change_evento_info(found_dia, found_evento, "nhonho", 666, 69, 30);
+    print_eventos(found_dia);*/
 
     return 0;
 }
@@ -239,7 +258,7 @@ void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
             insert_estudio_ordered(e, id_estudios, porta, aux2, size, p_dia, p_mes, p_final,
                                    area);
         }
-        //print_edificios(listaEdificios);
+        print_edificios(listaEdificios);
         print_estudios(e);
     }
     fclose(arquivoEdificios);
@@ -357,7 +376,6 @@ void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char 
                             float p_mes, float p_final, int area) {
     int i;
     ESTUDIO *pestudio = edificio->estudios.pestudios;
-
     for (i = 0; i < edificio->estudios.size_estudios; i++) {
 
         if (edificio->estudios.n_estudios == edificio->estudios.size_estudios) {
@@ -473,22 +491,16 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 }
 
 void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
+    ARRAY_AGENDAS *arrayAgendas = &found_estudio->agendas;
+    AGENDA *pagenda = arrayAgendas->pagendas;
 
-    AGENDA *pagenda = found_estudio->agendas.pagendas;
-
-    for (int i = 0; i <= found_estudio->agendas.size_agendas; i++) {
-
-        if (found_estudio->agendas.n_agendas == found_estudio->agendas.size_agendas) {
-            int oldsize = found_estudio->agendas.size_agendas;
+    for (int i = 0; i <= arrayAgendas->size_agendas; i++) {
+        if (arrayAgendas->n_agendas == arrayAgendas->size_agendas) {
+            int oldsize = arrayAgendas->size_agendas;
             int newsize = oldsize * 2;
-            found_estudio->agendas.pagendas = (AGENDA *) realloc(pagenda, newsize * sizeof(AGENDA));
-            found_estudio->agendas.size_agendas = newsize;
-            pagenda = found_estudio->agendas.pagendas + oldsize;
-            for (int j = oldsize; j < newsize; ++j) {
-                pagenda->plataforma = NULL;
-                pagenda++;
-            }
-            pagenda = found_estudio->agendas.pagendas + oldsize;
+            pagenda = (AGENDA *) realloc(pagenda, newsize * sizeof(AGENDA));
+            arrayAgendas->size_agendas = newsize;
+            arrayAgendas->pagendas = pagenda;
         }
         if (pagenda->plataforma == NULL) {
             pagenda->id_agenda = id_agendas++;
@@ -496,7 +508,7 @@ void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
             strcpy(pagenda->plataforma, plataforma);
             ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
             pagenda->dias = *arrayDias;
-            found_estudio->agendas.n_agendas++;
+            arrayAgendas->n_agendas++;
             sort_agendas(found_estudio);
             return;
         }
@@ -541,6 +553,7 @@ void sort_agendas(ESTUDIO *found_estudio) {
     for (i = 0; i < arrayAgendas->n_agendas; i++) {
         AGENDA key = agenda[i];
         j = i - 1;
+
         /* Move elements of arr[0..i-1], that are
         greater than key, to one position ahead
         of their current position */
@@ -574,15 +587,16 @@ ARRAY_DIAS *create_dynarray_dias(int initsize) {
 }
 
 void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
-    int i;
     DIA *pdia = found_agenda->dias.dias;
+    ARRAY_DIAS *arrayDias = &found_agenda->dias;
+    int i;
     for (i = 0; i <= found_agenda->dias.size_dias; i++) {
-        if (found_agenda->dias.n_dias == found_agenda->dias.size_dias) {
-            int oldsize = found_agenda->dias.size_dias;
+        if (arrayDias->n_dias == arrayDias->size_dias) {
+            int oldsize = arrayDias->size_dias;
             int newsize = oldsize * 2;
-            found_agenda->dias.dias = (DIA *) realloc(pdia, newsize * sizeof(DIA));
-            found_agenda->dias.size_dias = newsize;
-            pdia = found_agenda->dias.dias + oldsize;
+            pdia = (DIA *) realloc(pdia, newsize * sizeof(DIA));
+            arrayDias->size_dias = newsize;
+            arrayDias->dias = pdia;
         }
         if (pdia->dia == 0) {
             pdia->dia = dia;
@@ -590,16 +604,24 @@ void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
             pdia->ano = ano;
             LISTA_EVENTOS *listaEventos = create_lista_eventos();
             pdia->eventos = *listaEventos;
-            found_agenda->dias.n_dias++;
-            sort_dias(found_agenda);
+            arrayDias->n_dias++;
+            //sort_dias(found_agenda);
             return;
         }
         pdia++;
     }
 }
 
+DIA *find_dia(const AGENDA *found_agenda, int dia, int mes, int ano) {
+    DIA *d = found_agenda->dias.dias;
+    while (d != NULL) {
+        if (d->dia == dia && d->mes == mes && d->ano == ano) return d;
+        d++;
+    }
+    return NULL;
+}
 
-void sort_dias(AGENDA *found_agenda) {
+/*void sort_dias(AGENDA *found_agenda) {
     int i, j;
     ARRAY_DIAS *arrayDias = &found_agenda->dias;
     DIA *dia = arrayDias->dias;
@@ -614,7 +636,7 @@ void sort_dias(AGENDA *found_agenda) {
         }
         dia[j + 1] = key;
     }
-}
+}*/
 
 void print_dias(const AGENDA *found_agenda) {
     DIA *dia = found_agenda->dias.dias;
@@ -633,4 +655,103 @@ LISTA_EVENTOS *create_lista_eventos(void) {
     LISTA_EVENTOS *leventos = (LISTA_EVENTOS *) calloc(1, sizeof(LISTA_EVENTOS));
     leventos->peventos = NULL;
     return leventos;
+}
+
+void insert_evento(DIA *found_dia, int id_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim) {
+    EVENTO *e = (EVENTO *) calloc(1, sizeof(EVENTO));
+    e->id_evento = id_eventos++;
+    e->nome = (char *) malloc(sizeof(char) * strlen(nome));
+    strcpy(e->nome, nome);
+    e->hospede_id = hospede_id;
+    e->dia_inicio = dia_inicio;
+    e->dia_fim = dia_fim;
+    e->pevento_next = NULL;
+
+    EVENTO *ppre = NULL, *pcur = found_dia->eventos.peventos;
+    while (pcur != NULL && dia_inicio > pcur->dia_inicio) {
+        ppre = pcur;
+        pcur = pcur->pevento_next;
+    }
+
+    if (pcur == found_dia->eventos.peventos) {
+        e->pevento_next = found_dia->eventos.peventos;
+        found_dia->eventos.peventos = e;
+        found_dia->eventos.n_eventos++;
+        return;
+    }
+    e->pevento_next = pcur;
+    ppre->pevento_next = e;
+    found_dia->eventos.n_eventos++;
+}
+EVENTO *find_evento(const DIA *found_dia, int id_evento){
+    EVENTO *e = found_dia->eventos.peventos;
+    while (e != NULL) {
+        if (e->id_evento == id_evento) return e;
+        e++;
+    }
+    return NULL;
+}
+
+void remove_evento(DIA *found_dia, EVENTO *found_evento){
+    EVENTO * ppre = NULL, *pcur = found_dia->eventos.peventos;
+    while (pcur != found_evento && pcur != NULL) {
+        ppre = pcur;
+        pcur = pcur->pevento_next;
+    }
+    if (found_dia->eventos.peventos == found_evento) { //Primeiro
+        found_dia->eventos.peventos = pcur->pevento_next;
+        found_dia->eventos.n_eventos--;
+        free(pcur);
+        return;
+    }
+    if (found_dia->eventos.peventos->pevento_next == found_evento) {
+        found_dia->eventos.peventos->pevento_next = pcur->pevento_next;
+        found_dia->eventos.n_eventos--;
+        free(pcur);
+        return;
+    }
+    ppre->pevento_next = pcur->pevento_next;
+    free(pcur);
+    found_dia->eventos.n_eventos--;
+}
+
+void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim){
+    EVENTO * ppre = NULL, *pcur = found_dia->eventos.peventos;
+    while (pcur != found_evento && pcur != NULL) {
+        ppre = pcur;
+        pcur = pcur->pevento_next;
+    }
+    if (pcur == found_dia->eventos.peventos) {
+        found_dia->eventos.peventos = pcur->pevento_next;
+        pcur = found_dia->eventos.peventos;
+    } else {
+        ppre->pevento_next = pcur->pevento_next;
+        ppre = NULL, pcur = found_dia->eventos.peventos;
+    }
+
+    strcpy(found_evento->nome, nome);
+    found_evento->hospede_id = hospede_id;
+    found_evento->dia_inicio = dia_inicio;
+    found_evento->dia_fim = dia_fim;
+    /*Colocar o edificio alterado na posição correta, na lista, tendo em conta a  morada*/
+    while (pcur != NULL && dia_inicio > pcur->dia_inicio) {
+        ppre = pcur;
+        pcur = pcur->pevento_next;
+    }
+    if (pcur == found_dia->eventos.peventos) {
+        found_evento->pevento_next = found_dia->eventos.peventos;
+        found_dia->eventos.peventos = found_evento;
+        return;
+    }
+    found_evento->pevento_next= pcur;
+    ppre->pevento_next = found_evento;
+}
+
+void print_eventos(const DIA *found_dia) {
+    EVENTO *e = found_dia->eventos.peventos;
+    for (int i = 0; i < found_dia->eventos.n_eventos; i++) {
+        printf("ID: %d Nome: %s Hospede: %d Dia Inicio: %d Dia Fim: %d\n", e->id_evento, e->nome, e->hospede_id,
+               e->dia_inicio, e->dia_fim);
+        e = e->pevento_next;
+    }
 }
