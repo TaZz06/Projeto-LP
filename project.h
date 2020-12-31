@@ -83,7 +83,7 @@ typedef struct dia {
 typedef struct array_dias {
     int n_dias;
     int size_dias;
-    DIA *dias;
+    DIA *pdias;
 } ARRAY_DIAS;
 
 typedef struct agenda {

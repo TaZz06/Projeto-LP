@@ -8,7 +8,7 @@
 
 int id_edificios = 0;
 int id_estudios = 0;
-int id_agendas = 1;
+int id_agendas = 0;
 int id_eventos = 0;
 
 int main_project(int argc, const char *argv[]) {
@@ -44,13 +44,13 @@ int main_project(int argc, const char *argv[]) {
     //read_edificios_txt(le, file_EdfEst_TXT);
     //save_edificios_bin(le, file_EdfEst_BIN);
     read_edificios_bin(le, file_EdfEst_BIN);
-    print_edificios(le);
-    EDIFICIO* findEd = find_edificio(le,0);
-    print_estudios(findEd);
+    //print_edificios(le);
+    EDIFICIO *findEd = find_edificio(le, 0);
+    //print_estudios(findEd);
 
     ESTUDIO *found_estudio = binary_search_estudio(findEd, findEd->estudios.n_estudios, 121);
-    printf("Id Estudio: %d Porta: %d",found_estudio->id_estudio, found_estudio->numero_porta);
-    /*insert_agenda(found_estudio, "Master", 3);
+    // printf("Id Estudio: %d Porta: %d",found_estudio->id_estudio, found_estudio->numero_porta);
+    insert_agenda(found_estudio, "Master", 3);
     insert_agenda(found_estudio, "Haster", 3);
     insert_agenda(found_estudio, "Naster", 3);
     insert_agenda(found_estudio, "Daster", 3);
@@ -61,15 +61,15 @@ int main_project(int argc, const char *argv[]) {
     insert_agenda(found_estudio, "Baster", 3);
     insert_agenda(found_estudio, "Easter", 3);
     insert_agenda(found_estudio, "Jaster", 3);
-    print_agendas(found_estudio);*/
+    print_agendas(found_estudio);
 
-    //AGENDA *found_agenda = find_agenda(found_estudio, 0);
+    AGENDA *found_agenda = find_agenda(found_estudio, 0);
     /*printf("%s\n", found_agenda->plataforma);
     remove_agenda(found_estudio, found_agenda);
     print_agendas(found_estudio);
     printf("\n");*/
-    //insert_dia(found_agenda, 10, 03, 2022);
-    /*insert_dia(found_agenda, 1, 01, 2021);
+    insert_dia(found_agenda, 10, 03, 2022);
+    insert_dia(found_agenda, 1, 01, 2021);
     insert_dia(found_agenda, 2, 01, 2021);
     insert_dia(found_agenda, 4, 02, 2022);
     insert_dia(found_agenda, 5, 1, 2021);
@@ -77,9 +77,9 @@ int main_project(int argc, const char *argv[]) {
     insert_dia(found_agenda, 1, 01, 2021);
     insert_dia(found_agenda, 14, 01, 2021);
     insert_dia(found_agenda, 20, 02, 2022);
-    insert_dia(found_agenda, 30, 1, 2021);*/
-    /*print_dias(found_agenda);
-    DIA *found_dia = find_dia(found_agenda, 10, 03, 2022);
+    insert_dia(found_agenda, 30, 1, 2021);
+    print_dias(found_agenda);
+    /*DIA *found_dia = find_dia(found_agenda, 10, 03, 2022);
 
     found_dia->eventos = *create_lista_eventos();
     insert_evento(found_dia, id_eventos, "Finfa", 10, 3, 5);
@@ -249,7 +249,7 @@ void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
         fscanf(arquivoEdificios, "%d %*c %s %*c %f %*c %f %*c %d", &id_edificios, aux1, &latitude, &longitude, &size);
         insert_edificio_ordered(listaEdificios, aux1, latitude, longitude, size);
 
-        EDIFICIO *e = find_edificio(listaEdificios, id_edificios -1);
+        EDIFICIO *e = find_edificio(listaEdificios, id_edificios - 1);
         fscanf(arquivoEdificios, "%*s %*s %*s %d", &n2);
         while (arquivoEdificios != NULL && e->estudios.n_estudios < n2) {
             fscanf(arquivoEdificios, "%d %*c %d %*c %s %*c %d %*c %f %*c %f %*c %f %*c %d\n", &id_estudios, &porta,
@@ -492,27 +492,22 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 }
 
 void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias) {
-    int i;
-    for (i = 0; i <= found_estudio->agendas.size_agendas; i++) {
-        if (found_estudio->agendas.n_agendas == found_estudio->agendas.size_agendas) {
-            int oldsize = found_estudio->agendas.size_agendas;
-            int newsize = oldsize * 2;
-            AGENDA *pagenda = (AGENDA *) realloc(pagenda, newsize * sizeof(AGENDA));
-            found_estudio->agendas.size_agendas = newsize;
-            found_estudio->agendas.pagendas = pagenda;
-            found_estudio->agendas.pagendas += oldsize;
+
+    if (found_estudio != NULL) {
+        if (found_estudio->agendas.n_agendas >= found_estudio->agendas.size_agendas) {
+            found_estudio->agendas.size_agendas *= 2;
+            found_estudio->agendas.pagendas = (AGENDA *) realloc(found_estudio->agendas.pagendas,
+                                                                 found_estudio->agendas.size_agendas * sizeof(AGENDA));
         }
-        if (found_estudio->agendas.pagendas->id_agenda == 0) {
-            found_estudio->agendas.pagendas->id_agenda = id_agendas++;
-            found_estudio->agendas.pagendas->plataforma = (char *) malloc(strlen(plataforma) + 1);
-            strcpy(found_estudio->agendas.pagendas->plataforma, plataforma);
-            ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
-            found_estudio->agendas.pagendas->dias = *arrayDias;
-            found_estudio->agendas.n_agendas++;
-            //sort_agendas(found_estudio);
-            return;
-        }
-        found_estudio->agendas.pagendas++;
+        AGENDA *pagenda = found_estudio->agendas.pagendas + found_estudio->agendas.n_agendas;
+        pagenda->id_agenda = id_agendas++;
+        pagenda->plataforma = (char *) malloc(strlen(plataforma) + 1);
+        strcpy(pagenda->plataforma, plataforma);
+        ARRAY_DIAS *arrayDias = create_dynarray_dias(size_dias);
+        pagenda->dias = *arrayDias;
+
+        sort_agendas(found_estudio);
+        found_estudio->agendas.n_agendas++;
     }
 }
 
@@ -534,7 +529,6 @@ void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda) {//Todo Libertar arra
 void change_agenda_info(ESTUDIO *found_estudio, AGENDA *found_agenda, char plataforma[]) {
     strcpy(found_agenda->plataforma, plataforma);
     sort_agendas(found_estudio);
-    return;
 }
 
 AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda) {
@@ -580,40 +574,32 @@ void print_agendas(const ESTUDIO *found_estudio) {
 
 ARRAY_DIAS *create_dynarray_dias(int initsize) {
     ARRAY_DIAS *parray_dias = (ARRAY_DIAS *) calloc(1, sizeof(ARRAY_DIAS));
-    parray_dias->dias = (DIA *) calloc(initsize, sizeof(DIA));
+    parray_dias->pdias = (DIA *) calloc(initsize, sizeof(DIA));
     parray_dias->size_dias = initsize;
 
     return parray_dias;
 }
 
 void insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
-    DIA *pdia = found_agenda->dias.dias;
-    ARRAY_DIAS *arrayDias = &found_agenda->dias;
-    int i;
-    for (i = 0; i <= found_agenda->dias.size_dias; i++) {
-        if (arrayDias->n_dias == arrayDias->size_dias) {
-            int oldsize = arrayDias->size_dias;
-            int newsize = oldsize * 2;
-            pdia = (DIA *) realloc(pdia, newsize * sizeof(DIA));
-            arrayDias->size_dias = newsize;
-            arrayDias->dias = pdia;
+    if (found_agenda != NULL) {
+        if (found_agenda->dias.n_dias >= found_agenda->dias.size_dias) {
+            found_agenda->dias.size_dias *= 2;
+            found_agenda->dias.pdias = (DIA *) realloc(found_agenda->dias.pdias,
+                                                       found_agenda->dias.size_dias * sizeof(DIA));
         }
-        if (pdia->dia == 0) {
-            pdia->dia = dia;
-            pdia->mes = mes;
-            pdia->ano = ano;
-            LISTA_EVENTOS *listaEventos = create_lista_eventos();
-            pdia->eventos = *listaEventos;
-            arrayDias->n_dias++;
-            //sort_dias(found_agenda);
-            return;
-        }
-        pdia++;
+        DIA * pdia = found_agenda->dias.pdias + found_agenda->dias.n_dias;
+        pdia->dia = dia;
+        pdia->mes = mes;
+        pdia->ano = ano;
+        LISTA_EVENTOS *listaEventos = create_lista_eventos();
+        pdia->eventos = *listaEventos;
+
+        found_agenda->dias.n_dias ++;
     }
 }
 
 DIA *find_dia(const AGENDA *found_agenda, int dia, int mes, int ano) {
-    DIA *d = found_agenda->dias.dias;
+    DIA *d = found_agenda->dias.pdias;
     while (d != NULL) {
         if (d->dia == dia && d->mes == mes && d->ano == ano) return d;
         d++;
@@ -624,7 +610,7 @@ DIA *find_dia(const AGENDA *found_agenda, int dia, int mes, int ano) {
 void sort_dias(AGENDA *found_agenda) {
     int i, j;
     ARRAY_DIAS *arrayDias = &found_agenda->dias;
-    DIA *dia = arrayDias->dias;
+    DIA *dia = arrayDias->pdias;
     for (i = 0; i < arrayDias->n_dias; i++) {
         DIA key = dia[i];
         j = i - 1;
@@ -637,7 +623,7 @@ void sort_dias(AGENDA *found_agenda) {
 }
 
 void print_dias(const AGENDA *found_agenda) {
-    DIA *dia = found_agenda->dias.dias;
+    DIA *dia = found_agenda->dias.pdias;
     for (int i = 0; i < found_agenda->dias.n_dias; i++) {
         printf("DIA:%d MES:%d ANO:%d\n", dia->dia, dia->mes, dia->ano);
         dia++;
@@ -691,8 +677,8 @@ EVENTO *find_evento(const DIA *found_dia, int id_evento) {
     return NULL;
 }
 
-void remove_evento(DIA *found_dia, EVENTO *found_evento){
-    EVENTO * ppre = NULL, *pcur = found_dia->eventos.peventos;
+void remove_evento(DIA *found_dia, EVENTO *found_evento) {
+    EVENTO *ppre = NULL, *pcur = found_dia->eventos.peventos;
     while (pcur != found_evento && pcur != NULL) {
         ppre = pcur;
         pcur = pcur->pevento_next;
@@ -714,8 +700,8 @@ void remove_evento(DIA *found_dia, EVENTO *found_evento){
     found_dia->eventos.n_eventos--;
 }
 
-void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim){
-    EVENTO * ppre = NULL, *pcur = found_dia->eventos.peventos;
+void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim) {
+    EVENTO *ppre = NULL, *pcur = found_dia->eventos.peventos;
     while (pcur != found_evento && pcur != NULL) {
         ppre = pcur;
         pcur = pcur->pevento_next;
