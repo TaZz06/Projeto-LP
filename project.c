@@ -232,7 +232,7 @@ void save_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
     printf("Sucesso\n");
 }
 
-void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) { //TODO Id's modificados na insert depois da read
+void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
     FILE *arquivoEdificios;
     if ((arquivoEdificios = fopen(filename, "r")) == NULL) {
         fprintf(stdout, "ERRO\n");
@@ -245,14 +245,21 @@ void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) { //TO
     fscanf(arquivoEdificios, "%*[^:]:%d", &n1);
     while (arquivoEdificios != NULL && listaEdificios->n_edificios < n1) {
         fscanf(arquivoEdificios, "%d | %[^|] | %f | %f | %d", &id_edf, aux1, &latitude, &longitude, &size);
+        if (id_edf > id_edificios) {
+            id_edificios = id_edf + 1;
+        }
+        id_edificios--;
         insert_edificio_ordered(listaEdificios, id_edf, aux1, latitude, longitude, size);
 
         EDIFICIO *e = find_edificio(listaEdificios, id_edf);
-        fscanf(arquivoEdificios, "%*[^:]:%d", &n2);
-        while (e->estudios.n_estudios < n2) {
-            fscanf(arquivoEdificios, "%d | %d | %[^|] | %d | %f | %f | %f | %d |", &id_est, &porta,
-                   aux2,
-                   &size, &p_dia, &p_mes, &p_final, &area);
+        fscanf(arquivoEdificios, "%*s %*s %*s %d", &n2);
+        while (arquivoEdificios != NULL && e->estudios.n_estudios < n2) {
+            fscanf(arquivoEdificios, "%d | %d | %[^|] | %d | %f | %f | %f | %d |", &id_est, &porta, aux2, &size, &p_dia,
+                   &p_mes, &p_final, &area);
+            if (id_est > id_estudios) {
+                id_estudios = id_est + 1;
+            }
+            id_estudios--;
             insert_estudio_ordered(e, id_est, porta, aux2, size, p_dia, p_mes, p_final,
                                    area);
         }
@@ -750,18 +757,18 @@ void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
             for (int k = 0; k < estudio->agendas.n_agendas; k++) {
                 AGENDA * agenda;
                 agenda = find_agenda(estudio, estudio->agendas.pagendas->id_agenda);
-                fprintf(arquivoAgendas, "\nAgenda: %d | %s",agenda->id_agenda, agenda->plataforma);
+                fprintf(arquivoAgendas, "\n%d | %s",agenda->id_agenda, agenda->plataforma);
 
                 for (int l = 0; l < agenda->dias.n_dias; l++) {
                     DIA * dia = find_dia(agenda, agenda->dias.pdias->dia, agenda->dias.pdias->mes,
                                         agenda->dias.pdias->ano);
-                    fprintf(arquivoAgendas, "\n\n\tData: %d | %d | %d", dia->dia, dia->mes, dia->ano);
+                    fprintf(arquivoAgendas, "\n\n\t %d | %d | %d", dia->dia, dia->mes, dia->ano);
                     fprintf(arquivoAgendas, "\n\tNumero de eventos: %d", dia->eventos.n_eventos);
                     EVENTO * evento = dia->eventos.peventos;
 
                     for (int m = 0; m < dia->eventos.n_eventos; m++) {
                         evento = find_evento(dia, evento->id_evento);
-                        fprintf(arquivoAgendas, "\n\t\tEvento: %d | %s | %d | %d | %d", evento->id_evento, evento->nome,
+                        fprintf(arquivoAgendas, "\n\t\t %d | %s | %d | %d | %d", evento->id_evento, evento->nome,
                                 evento->hospede_id, evento->dia_inicio, evento->dia_fim);
                         evento = evento->pevento_next;
                     }
