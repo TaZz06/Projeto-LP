@@ -159,7 +159,7 @@ LISTA_EDIFICIOS *create_lista_edificios(void);
 * @param morada_edificio
 * @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, char morada_edificio[], float latitude, float longitude,
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int edificio, char morada_edificio[], float latitude, float longitude,
                              int size_estudios);
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
@@ -186,7 +186,7 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios);
 /*---------------------------------------------------[ESTUDIOS]---------------------------------------------------*/
 ARRAY_ESTUDIOS *create_dynarray_estudios(int initsize);
 
-void insert_estudio_ordered(EDIFICIO *edificio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
+void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
                             float p_mes, float p_final, int area);
 
 ESTUDIO *binary_search_estudio(const EDIFICIO *found_edificio, int n, int numero_porta);
@@ -242,13 +242,15 @@ void print_dias(const AGENDA *found_agenda);
 
 LISTA_EVENTOS *create_lista_eventos(void);
 
-void insert_evento(DIA *found_dia, int id_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+void insert_evento(DIA *found_dia, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 EVENTO *find_evento(const DIA *found_dia, int id_evento);
 
 void remove_evento(DIA *found_dia, EVENTO *found_evento);
 
 void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+
+void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void print_eventos(const DIA *found_dia);
 
