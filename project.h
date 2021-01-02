@@ -206,7 +206,7 @@ void print_estudios(const EDIFICIO *found_edificio);
 
 ARRAY_AGENDAS *create_dynarray_agendas(int initsize);
 
-void insert_agenda(ESTUDIO *found_estudio, char plataforma[], int size_dias);
+void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[], int size_dias);
 
 AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda);
 
@@ -251,6 +251,10 @@ void remove_evento(DIA *found_dia, EVENTO *found_evento);
 void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+
+void save_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+
+void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void print_eventos(const DIA *found_dia);
 

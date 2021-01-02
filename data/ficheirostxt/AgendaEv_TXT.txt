@@ -1,4 +1,5 @@
-Estudio: 111 Numero de Agendas: 0Estudio: 121 Numero de Agendas: 4
+ID Edificio :0Estudio:  121 Numero de Agendas: 4
+
 Agenda: 1 | AirBnA
 Agenda: 2 | AirBnB
 
@@ -39,4 +40,4 @@ Agenda: 2 | AirBnB
 	Data: 10 | 3 | 2022
 	Numero de eventos: 0
 Agenda: 3 | AirBnC
-Agenda: 0 | MasterEstudio: 123 Numero de Agendas: 0Estudio: 128 Numero de Agendas: 0Estudio: 132 Numero de Agendas: 0Estudio: 155 Numero de Agendas: 0Estudio: 0 Numero de Agendas: 0Estudio: 0 Numero de Agendas: 0Estudio: 0 Numero de Agendas: 0Estudio: 0 Numero de Agendas: 0Estudio: 201347982 Numero de Agendas: 0
+Agenda: 0 | Master
