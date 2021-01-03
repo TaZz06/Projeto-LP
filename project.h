@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MAXCONFIG 3  // T$ + "/0" ($=0/1/2/3/4)
 #define T0 "T0"
@@ -262,6 +263,7 @@ void save_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
+void historico_estadias(LISTA_EDIFICIOS * listaEdificios, LISTA_HOSPEDES *listaHospedes);
 
 void print_eventos(const DIA *found_dia);
 
