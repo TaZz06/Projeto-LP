@@ -131,7 +131,7 @@ typedef struct lista_edificios {
 
 typedef struct hospede {
     int id;
-    int nome;
+    char *nome;
     LISTA_EDIFICIOS historico;
     struct hospede *phospede_next;
 } HOSPEDE;
@@ -159,7 +159,8 @@ LISTA_EDIFICIOS *create_lista_edificios(void);
 * @param morada_edificio
 * @param size_estudios - numero de estudios para criar o array de estudios associado ao edificio (ARRAY_ESTUDIOS).
 */
-void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int edificio, char morada_edificio[], float latitude, float longitude,
+void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int edificio, char morada_edificio[], float latitude,
+                             float longitude,
                              int size_estudios);
 
 EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio);
@@ -171,11 +172,11 @@ change_edificio_info(LISTA_EDIFICIOS *lista_edificios, EDIFICIO *found_edificio,
                      float longitude);
 
 
-void save_edificios_txt(LISTA_EDIFICIOS * listaEdificios, char filename[]);
+void save_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void read_edificios_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
-void save_edificios_bin(LISTA_EDIFICIOS * listaEdificios, char filename[]);
+void save_edificios_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void read_edificios_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
@@ -186,15 +187,18 @@ void print_edificios(LISTA_EDIFICIOS *listaEdificios);
 /*---------------------------------------------------[ESTUDIOS]---------------------------------------------------*/
 ARRAY_ESTUDIOS *create_dynarray_estudios(int initsize);
 
-void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
+void insert_estudio_ordered(EDIFICIO *edificio, int id_estudio, int porta, char config[MAXCONFIG], int size_agendas,
+                            float p_dia,
                             float p_mes, float p_final, int area);
 
 ESTUDIO *binary_search_estudio(const EDIFICIO *found_edificio, int n, int numero_porta);
 
 void remove_estudio_ordered(EDIFICIO *found_edificio, ESTUDIO *found_estudio);
 
-void change_estudio_info(EDIFICIO * edificio, ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas, float p_dia,
-                         float p_mes, float p_final, int area);
+void
+change_estudio_info(EDIFICIO *edificio, ESTUDIO *found_estudio, int porta, char config[MAXCONFIG], int size_agendas,
+                    float p_dia,
+                    float p_mes, float p_final, int area);
 
 void sort_estudios(EDIFICIO *edificio);
 
@@ -260,6 +264,23 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 
 void print_eventos(const DIA *found_dia);
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------[HOSPEDES]---------------------------------------------------*/
+
+LISTA_HOSPEDES *create_lista_hospedes(void);
+
+void insert_hospedes_ordered(LISTA_HOSPEDES *lista_hospedes, int id_hospede, char nome[]);
+
+HOSPEDE *find_hospede(const LISTA_HOSPEDES *lista_hospedes, int id_hospede);
+
+void remove_hospede_ordered(LISTA_HOSPEDES *lista_hospedes, HOSPEDE *found_hospede);
+
+void change_hospede_info(LISTA_HOSPEDES *lista_hospedes, HOSPEDE *found_hospede, char nome[]);
+
+void print_hospedes(const LISTA_HOSPEDES * lista_Hospedes);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 

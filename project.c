@@ -10,6 +10,7 @@ int id_edificios = 0;
 int id_estudios = 0;
 int id_agendas = 0;
 int id_eventos = 0;
+int id_hospedes = 0;
 
 int main_project(int argc, const char *argv[]) {
     int size = 10;
@@ -45,26 +46,26 @@ int main_project(int argc, const char *argv[]) {
     //save_edificios_txt(le, file_EdfEst_TXT);
     //read_edificios_txt(le, file_EdfEst_TXT);
     //save_edificios_bin(le, file_EdfEst_BIN);
-    read_edificios_bin(le, file_EdfEst_BIN);
+    //read_edificios_bin(le, file_EdfEst_BIN);
 
 
     char file_AgendaEv_TXT[] = "../data/ficheirostxt/AgendaEv_TXT.txt";
     char file_AgendaEv_BIN[] = "../data/ficheirosbin/AgendaEv_BIN.txt";
 
-    read_eventos_bin(le, file_AgendaEv_BIN);
+    //read_eventos_bin(le, file_AgendaEv_BIN);
 
-    print_edificios(le);
+    /*print_edificios(le);
     EDIFICIO *findEd = find_edificio(le, 0);
-    print_estudios(findEd);
+    print_estudios(findEd);*/
 
-    ESTUDIO *found_estudio = binary_search_estudio(findEd, findEd->estudios.n_estudios, 121);
+    //ESTUDIO *found_estudio = binary_search_estudio(findEd, findEd->estudios.n_estudios, 121);
     /*insert_agenda(found_estudio, id_agendas, "Master", 3);
     insert_agenda(found_estudio, id_agendas, "AirBnA", 3);
     insert_agenda(found_estudio, id_agendas, "AirBnB", 3);
     insert_agenda(found_estudio, id_agendas, "AirBnC", 3);*/
-    print_agendas(found_estudio);
+    //print_agendas(found_estudio);
 
-    AGENDA *found_agenda = find_agenda(found_estudio, 2);
+    //AGENDA *found_agenda = find_agenda(found_estudio, 2);
     /*insert_dia(found_agenda, 10, 03, 2022);
     insert_dia(found_agenda, 1, 01, 2021);
     insert_dia(found_agenda, 2, 01, 2021);
@@ -75,9 +76,9 @@ int main_project(int argc, const char *argv[]) {
     insert_dia(found_agenda, 14, 01, 2021);
     insert_dia(found_agenda, 20, 02, 2022);
     insert_dia(found_agenda, 30, 1, 2021);*/
-    print_dias(found_agenda);
+    //print_dias(found_agenda);
 
-    DIA *found_dia = find_dia(found_agenda, 30, 1, 2021);
+    //DIA *found_dia = find_dia(found_agenda, 30, 1, 2021);
     /*found_dia->eventos = *create_lista_eventos();
     insert_evento(found_dia, id_eventos, "Manuntencao", -1, 3, 5);
     insert_evento(found_dia, id_eventos, "Estadia", 5, 7, 3);
@@ -86,7 +87,7 @@ int main_project(int argc, const char *argv[]) {
     insert_evento(found_dia, id_eventos, "Limpeza", -1, 30, 10);
     insert_evento(found_dia, id_eventos, "Estadia", 1, 29, 11);
     insert_evento(found_dia, id_eventos, "Manuntencao", -1, 11, 12);*/
-    print_eventos(found_dia);
+    //print_eventos(found_dia);
 
     //EVENTO *found_evento = find_evento(found_dia, 2);
     //printf("%s\n", found_evento->nome);
@@ -98,6 +99,21 @@ int main_project(int argc, const char *argv[]) {
 
     //save_eventos_txt(le, file_AgendaEv_TXT);
     //save_eventos_bin(le, file_AgendaEv_BIN);
+
+    LISTA_HOSPEDES * lh = create_lista_hospedes();
+    insert_hospedes_ordered(lh, id_hospedes, "Filipe Nogueira");
+    insert_hospedes_ordered(lh, id_hospedes, "Luis Gouveia");
+    insert_hospedes_ordered(lh, id_hospedes, "Carlos Ferreira");
+    insert_hospedes_ordered(lh, id_hospedes, "Ze Carlos");
+    insert_hospedes_ordered(lh, id_hospedes, "Nelo Chapeiro");
+    insert_hospedes_ordered(lh, id_hospedes, "Ana Malhoa");
+    print_hospedes(lh);
+    HOSPEDE * found_hospede = find_hospede(lh, 4);
+    printf("%d %s\n", found_hospede->id, found_hospede->nome);
+    //remove_hospede_ordered(lh, found_hospede);
+    change_hospede_info(lh, found_hospede, "Tony do Rock");
+
+
     return 0;
 }
 /**------------------------------------------------------------------------------------------------------------------*/
@@ -955,7 +971,6 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
             }
         }
     }
-
     fclose(fileAgnEvn);
     printf("Sucesso\n");
 }
@@ -967,5 +982,109 @@ void print_eventos(const DIA *found_dia) {
         printf("ID: %d Nome: %s Hospede: %d Dia Inicio: %d Dia Fim: %d\n", e->id_evento, e->nome, e->hospede_id,
                e->dia_inicio, e->dia_fim);
         e = e->pevento_next;
+    }
+}
+
+/**------------------------------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------[HOSPEDES]---------------------------------------------------*/
+
+LISTA_HOSPEDES *create_lista_hospedes(void) {
+    LISTA_HOSPEDES *lh = (LISTA_HOSPEDES *) calloc(1, sizeof(LISTA_HOSPEDES));
+    lh->phospedes = NULL;
+    return lh;
+}
+
+void insert_hospedes_ordered(LISTA_HOSPEDES *lista_hospedes, int id_hospede, char nome[]) {
+    HOSPEDE *hospede = (HOSPEDE *) calloc(1, sizeof(HOSPEDE));
+    id_hospedes++;
+    hospede->id = id_hospede;
+    hospede->nome = (char *) malloc(sizeof(char) * strlen(nome) + 1);
+    strcpy(hospede->nome, nome);
+    hospede->phospede_next = NULL;
+
+    HOSPEDE *ppre = NULL, *pcur = lista_hospedes->phospedes;
+    while (pcur != NULL && strcmp(nome, pcur->nome) > 0) {
+        ppre = pcur;
+        pcur = pcur->phospede_next;
+    }
+    if (pcur == lista_hospedes->phospedes) {
+        hospede->phospede_next = lista_hospedes->phospedes;
+        lista_hospedes->phospedes = hospede;
+        lista_hospedes->n_hospedes++;
+        return;
+    }
+    hospede->phospede_next = pcur;
+    ppre->phospede_next = hospede;
+    lista_hospedes->n_hospedes++;
+}
+
+HOSPEDE *find_hospede(const LISTA_HOSPEDES *lista_hospedes, int id_hospede) {
+    HOSPEDE *h = lista_hospedes->phospedes;
+    while (h != NULL) {
+        if (h->id == id_hospede) return h;
+        h = h->phospede_next;
+    }
+    return NULL;
+}
+
+void remove_hospede_ordered(LISTA_HOSPEDES *lista_hospedes,
+                            HOSPEDE *found_hospede) { //TODO DAR FREE NOS ESTUDIOS/AGENDAS/...
+    HOSPEDE *ppre = NULL, *pcur = lista_hospedes->phospedes;
+    while (pcur != found_hospede && pcur != NULL) {
+        ppre = pcur;
+        pcur = pcur->phospede_next;
+    }
+    if (lista_hospedes->phospedes == found_hospede) { //Primeiro
+        lista_hospedes->phospedes = pcur->phospede_next;
+        lista_hospedes->n_hospedes--;
+        free(pcur);
+        return;
+    }
+    if (lista_hospedes->phospedes->phospede_next == found_hospede) {
+        lista_hospedes->phospedes->phospede_next = pcur->phospede_next;
+        lista_hospedes->n_hospedes--;
+        free(pcur);
+        return;
+    }
+    ppre->phospede_next = pcur->phospede_next;
+    free(pcur);
+    lista_hospedes->n_hospedes--;
+}
+
+void
+change_hospede_info(LISTA_HOSPEDES *lista_hospedes, HOSPEDE *found_hospede, char nome[]) {
+    HOSPEDE *ppre = NULL, *pcur = lista_hospedes->phospedes;
+    while (pcur != NULL && pcur != found_hospede) {
+        ppre = pcur;
+        pcur = pcur->phospede_next;
+    }
+    if (pcur == lista_hospedes->phospedes) {
+        lista_hospedes->phospedes = pcur->phospede_next;
+        pcur = lista_hospedes->phospedes;
+    } else {
+        ppre->phospede_next = pcur->phospede_next;
+        ppre = NULL, pcur = lista_hospedes->phospedes;
+    }
+    strcpy(found_hospede->nome, nome);
+    while (pcur != NULL && strcmp(nome, pcur->nome) > 0) {
+        ppre = pcur;
+        pcur = pcur->phospede_next;
+    }
+    if (pcur == lista_hospedes->phospedes) {
+        found_hospede->phospede_next = lista_hospedes->phospedes;
+        lista_hospedes->phospedes = found_hospede;
+        return;
+    }
+    found_hospede->phospede_next = pcur;
+    ppre->phospede_next = found_hospede;
+}
+
+void print_hospedes(const LISTA_HOSPEDES * lista_Hospedes) {
+    HOSPEDE *h = lista_Hospedes->phospedes;
+    for (int i = 0; i < lista_Hospedes->n_hospedes; i++) {
+        printf("ID: %d Nome: %s\n", h->id, h->nome);
+        h = h->phospede_next;
     }
 }
