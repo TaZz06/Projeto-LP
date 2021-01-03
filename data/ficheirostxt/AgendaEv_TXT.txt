@@ -1,43 +1,33 @@
-ID Edificio :0Estudio:  121 Numero de Agendas: 4
-
-Agenda: 1 | AirBnA
-Agenda: 2 | AirBnB
-
-	Data: 1 | 1 | 2021
-	Numero de eventos: 0
-
-	Data: 1 | 1 | 2021
-	Numero de eventos: 0
-
-	Data: 2 | 1 | 2021
-	Numero de eventos: 0
-
-	Data: 5 | 1 | 2021
-	Numero de eventos: 0
-
-	Data: 14 | 1 | 2021
-	Numero de eventos: 0
-
-	Data: 30 | 1 | 2021
-	Numero de eventos: 7
-		Evento: 0 | Manuntencao | -1 | 3 | 5
-		Evento: 2 | Limpeza | -1 | 5 | 4
-		Evento: 1 | Estadia | 5 | 7 | 3
-		Evento: 6 | Manuntencao | -1 | 11 | 12
-		Evento: 5 | Estadia | 1 | 29 | 11
-		Evento: 4 | Limpeza | -1 | 30 | 10
-		Evento: 3 | Reuniao | 12 | 31 | 9
-
-	Data: 4 | 2 | 2022
-	Numero de eventos: 0
-
-	Data: 20 | 2 | 2022
-	Numero de eventos: 0
-
-	Data: 9 | 3 | 2022
-	Numero de eventos: 0
-
-	Data: 10 | 3 | 2022
-	Numero de eventos: 0
-Agenda: 3 | AirBnC
-Agenda: 0 | Master
+idEdificio: 0
+Porta: 121 SizeAgendas: 4
+1 | AirBnA | 3 | 0
+2 | AirBnB | 12 | 10
+	1 | 1 | 2021
+	Numero eventos: 0
+	1 | 1 | 2021
+	Numero eventos: 0
+	2 | 1 | 2021
+	Numero eventos: 0
+	5 | 1 | 2021
+	Numero eventos: 0
+	14 | 1 | 2021
+	Numero eventos: 0
+	30 | 1 | 2021
+	Numero eventos: 7
+		0 | Manuntencao | -1 | 3 | 5
+		2 | Limpeza | -1 | 5 | 4
+		1 | Estadia | 5 | 7 | 3
+		6 | Manuntencao | -1 | 11 | 12
+		5 | Estadia | 1 | 29 | 11
+		4 | Limpeza | -1 | 30 | 10
+		3 | Reuniao | 12 | 31 | 9
+	4 | 2 | 2022
+	Numero eventos: 0
+	20 | 2 | 2022
+	Numero eventos: 0
+	9 | 3 | 2022
+	Numero eventos: 0
+	10 | 3 | 2022
+	Numero eventos: 0
+3 | AirBnC | 3 | 0
+0 | Master | 3 | 0

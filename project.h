@@ -242,7 +242,7 @@ void print_dias(const AGENDA *found_agenda);
 
 LISTA_EVENTOS *create_lista_eventos(void);
 
-void insert_evento(DIA *found_dia, char *nome, int hospede_id, int dia_inicio, int dia_fim);
+void insert_evento(DIA *found_dia, int id_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 EVENTO *find_evento(const DIA *found_dia, int id_evento);
 
@@ -252,9 +252,12 @@ void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int ho
 
 void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
+void read_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+
 void save_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+
 
 void print_eventos(const DIA *found_dia);
 
