@@ -906,16 +906,16 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
         printf("Erro %s\n", filename);
         return;
     }
-    while (!feof(fileAgnEvn)) {
-       // if (feof(fileAgnEvn))break;
-        int id_edf, porta_est, n_agendas;
-        fread(&id_edf, sizeof(int), 1, fileAgnEvn);
+    int id_edf, freadValue;
+
+    while ((freadValue = fread(&id_edf, sizeof(int), 1, fileAgnEvn)) != 0) {
+        int porta_est, n_agendas;
         fread(&porta_est, sizeof(int), 1, fileAgnEvn);
         fread(&n_agendas, sizeof(int), 1, fileAgnEvn);
         printf("%d", n_agendas);
         EDIFICIO *found_edf = find_edificio(listaEdificios, id_edf);
         ESTUDIO *found_estudio = binary_search_estudio(found_edf, found_edf->estudios.n_estudios, porta_est);
-        for (int i = 0; i < n_agendas; ++i) {
+        for (int i = 0; i < n_agendas && found_estudio->agendas.pagendas != NULL; ++i) {
             int id_agenda, size_plataforma, n_dias, size_dias;
             char plataforma[200];
             fread(&id_agenda, sizeof(int), 1, fileAgnEvn);
@@ -923,8 +923,12 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
             fread(plataforma, sizeof(char), size_plataforma, fileAgnEvn);
             fread(&n_dias, sizeof(int), 1, fileAgnEvn);
             fread(&size_dias, sizeof(int), 1, fileAgnEvn);
-            insert_agenda(found_estudio, id_agenda, plataforma, size_dias); //TODO ID AGENDA CONDIÇÂO
+            insert_agenda(found_estudio, id_agenda, plataforma, size_dias);
             AGENDA *found_agenda = find_agenda(found_estudio, id_agenda);
+            if (id_agenda > id_agendas) {
+                id_agendas = id_agenda + 1;
+            }
+            id_agendas--;
             for (int j = 0; j < n_dias; ++j) {
                 int dia, mes, ano, n_eventos;
                 fread(&dia, sizeof(int), 1, fileAgnEvn);
@@ -943,10 +947,15 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
                     fread(&data_i, sizeof(int), 1, fileAgnEvn);
                     fread(&data_f, sizeof(int), 1, fileAgnEvn);
                     insert_evento(found_dia, id_evento, nome, id_hospede, data_i, data_f);
+                    if (id_evento > id_eventos) {
+                        id_eventos = id_evento + 1;
+                    }
+                    id_eventos--;
                 }
             }
         }
     }
+
     fclose(fileAgnEvn);
     printf("Sucesso\n");
 }
