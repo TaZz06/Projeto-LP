@@ -28,7 +28,6 @@
  * Antecedencia
  * Ocupação
  */
-
 typedef struct regra_custo {
     char *regra;
     float ajuste;
@@ -46,12 +45,9 @@ typedef struct politica {
  * airbnd
  * airbne
  */
-
 typedef struct plataforma {
     char *nome;
-    int n_politicas;
-    int size_politicas;
-    POLITICA *ppoliticas;
+    POLITICA *politica;
 } PLATAFORMA;
 
 typedef struct dynarray_plataformas {
@@ -115,6 +111,12 @@ typedef struct dynarray_estudios {
     int size_estudios;
     ESTUDIO *pestudios;
 } ARRAY_ESTUDIOS;
+
+typedef struct estudio_politica {
+    int id;
+    int id_estudio;
+    POLITICA politica;
+}EST_POLITICA;
 
 typedef struct edificio {
     int id_edificio;
@@ -286,7 +288,34 @@ void print_hospedes(const LISTA_HOSPEDES * lista_Hospedes);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
-/*---------------------------------------------------[--]---------------------------------------------------*/
+/*--------------------------------------------[PLATAFORMAS/POLITICAS]--------------------------------------------*/
+
+ARRAY_PLATAFORMAS *create_dynarray_plataformas(int initsize);
+
+void insert_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[], char politica[], int size_regras);
+
+PLATAFORMA *find_plataforma(const ARRAY_PLATAFORMAS *plataformas, char nome[]);
+
+void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]);
+
+void change_plataforma_info(ARRAY_PLATAFORMAS *plataformas, char nome[], char politica[]);
+
+void print_plataforma_politica(const ARRAY_PLATAFORMAS *plataformas);
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+/*-----------------------------------------------[REGRAS DE CUSTO]-----------------------------------------------*/
+
+void insert_regra(POLITICA *politica, char regra[], float ajuste);
+
+REGRA_CUSTO *find_regra(const POLITICA *politica, char regra[]);
+
+void remove_regra(POLITICA *politica, char regra[]);
+
+void change_regra(POLITICA *politica, char regra[], float ajuste);
+
+void print_regras(const POLITICA *politica);
+
 /*----------------------------------------------------------------------------------------------------------------*/
 
 #endif //PROJETO_LP_PROJECT_H
