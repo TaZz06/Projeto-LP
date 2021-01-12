@@ -15,7 +15,7 @@ int id_hospedes = 0;
 int main_project(int argc, const char *argv[]) {
     int size = 10;
 
-    LISTA_EDIFICIOS *le = create_lista_edificios();
+    /*LISTA_EDIFICIOS *le = create_lista_edificios();
     insert_edificio_ordered(le, id_edificios, "f", -12.0, 3.0, size);
     insert_edificio_ordered(le, id_edificios, "o", -125453, 434125, size);
     insert_edificio_ordered(le, id_edificios, "k", -13213, 478785, size);
@@ -35,7 +35,7 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(le, 2, id_estudios, 129, T4, 3, 50, 600, 0, 120);
     insert_estudio_ordered(le, 3, id_estudios, 111, T2, 3, 50, 600, 0, 120);
     insert_estudio_ordered(le, 2, id_estudios, 145, T4, 3, 50, 600, 0, 120);
-    print_estudios(le, 1);
+    print_estudios(le, 1);*/
 
 
     char file_EdfEst_TXT[] = "../data/ficheirostxt/EdfEst_TXT.txt";
@@ -118,13 +118,13 @@ int main_project(int argc, const char *argv[]) {
     insert_plataforma_politica(arrayPlataformas, "p3", "Modalidade", 3);
     insert_plataforma_politica(arrayPlataformas, "p4", "Ocupacao", 3);
     print_plataforma_politica(arrayPlataformas);
-    printf("\n");*/
+    printf("\n");
     //remove_plataforma_politica(arrayPlataformas, "p2");
     //print_plataforma_politica(arrayPlataformas);
-    //PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
+    PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     //printf("%s", pl->nome);
 
-    /*insert_regra(pl->politica, "T0", 0.1);
+    insert_regra(pl->politica, "T0", 0.1);
     insert_regra(pl->politica, "T1", 0.2);
     insert_regra(pl->politica, "T2", 0.3);
     insert_regra(pl->politica, "T3", 0.4);
@@ -136,6 +136,7 @@ int main_project(int argc, const char *argv[]) {
     //save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
     //save_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
 
+    read_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
     read_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
     PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     print_plataforma_politica(arrayPlataformas);
@@ -585,6 +586,7 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 
 void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[],
                    int size_dias) {//TODO ID AGENDA / ID GLOBAL ACERTO
+
     if (found_estudio != NULL) {
         if (found_estudio->agendas.n_agendas >= found_estudio->agendas.size_agendas) {
             found_estudio->agendas.size_agendas *= 2;
@@ -1292,7 +1294,7 @@ void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]) {
     }
 }
 
-void save_plataformas_txt(ARRAY_PLATAFORMAS *plataformas, char filename[]) {
+void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
     FILE *arquivoPlataformas = NULL;
 
     if ((arquivoPlataformas = fopen(filename, "w")) == NULL) {
@@ -1306,7 +1308,7 @@ void save_plataformas_txt(ARRAY_PLATAFORMAS *plataformas, char filename[]) {
                 "Plataforma: %s\n", pl->nome);
         POLITICA *politica = pl->politica;
         fprintf(arquivoPlataformas, "\tPolitica: %s | Numero de regras: %d\n", politica->politica, politica->n_regras);
-        REGRA_CUSTO *regras = politica->regras;
+        REGRA_CUSTO * regras = politica->regras;
         for (int j = 0; j < politica->n_regras; j++) {
             fprintf(arquivoPlataformas, "\t\t %s | %.2f \n", regras->regra, regras->ajuste);
             regras++;
@@ -1377,6 +1379,31 @@ void read_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]){
     }
     fclose(filePlataformas);
     printf("Sucesso\n");
+}
+
+void
+read_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
+    FILE *arquivoPlataformas;
+    if ((arquivoPlataformas = fopen(filename, "r")) == NULL) {
+        fprintf(stdout, "ERRO\n");
+        return;
+    }
+    char nomeplat[20], nomePol[20], regra[10];
+    float ajuste = 0;
+    int size, nplat = 0, n_regras;
+
+    fscanf(arquivoPlataformas, "%*[^:]:%d", &nplat);
+    while (arquivoPlataformas != NULL && plataformas->n_plataformas < nplat) {
+        fscanf(arquivoPlataformas, "%*[^:]:%s %*[^:]:%s | %*[^:]:%d", nomeplat, nomePol, &n_regras);
+        insert_plataforma_politica(plataformas, nomeplat, nomePol, 3);
+        PLATAFORMA * pl = plataformas->pplataformas;
+        POLITICA * politica = pl->politica;
+        while (arquivoPlataformas != NULL && politica->n_regras < n_regras) {
+            fscanf(arquivoPlataformas, "%s | %f ", regra, &ajuste);
+            insert_regra(politica, regra, ajuste);
+        }
+    }
+    fclose(arquivoPlataformas);
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/

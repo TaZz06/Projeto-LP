@@ -297,6 +297,8 @@ void change_plataforma_info(ARRAY_PLATAFORMAS *plataformas, char nome[], char po
 
 void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]);
 
+void read_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]);
+
 void save_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]);
 
 void read_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]);
