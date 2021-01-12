@@ -40,11 +40,6 @@ typedef struct politica {
     REGRA_CUSTO *regras;
 } POLITICA;
 
-/**
- * airbnc
- * airbnd
- * airbne
- */
 typedef struct plataforma {
     char *nome;
     POLITICA *politica;
@@ -299,6 +294,8 @@ PLATAFORMA *find_plataforma(const ARRAY_PLATAFORMAS *plataformas, char nome[]);
 void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]);
 
 void change_plataforma_info(ARRAY_PLATAFORMAS *plataformas, char nome[], char politica[]);
+
+void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]);
 
 void print_plataforma_politica(const ARRAY_PLATAFORMAS *plataformas);
 
