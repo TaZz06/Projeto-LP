@@ -15,7 +15,7 @@ int id_hospedes = 0;
 int main_project(int argc, const char *argv[]) {
     int size = 10;
 
-    LISTA_EDIFICIOS *le = create_lista_edificios();
+    /*LISTA_EDIFICIOS *le = create_lista_edificios();
     insert_edificio_ordered(le, id_edificios, "f", -12.0, 3.0, size);
     insert_edificio_ordered(le, id_edificios, "o", -125453, 434125, size);
     insert_edificio_ordered(le, id_edificios, "k", -13213, 478785, size);
@@ -35,7 +35,7 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(le, 2, id_estudios, 129, T4, 3, 50, 600, 0, 120);
     insert_estudio_ordered(le, 3, id_estudios, 111, T2, 3, 50, 600, 0, 120);
     insert_estudio_ordered(le, 2, id_estudios, 145, T4, 3, 50, 600, 0, 120);
-    print_estudios(le, 1);
+    print_estudios(le, 1);*/
 
 
     char file_EdfEst_TXT[] = "../data/ficheirostxt/EdfEst_TXT.txt";
@@ -112,7 +112,7 @@ int main_project(int argc, const char *argv[]) {
 
 
     ARRAY_PLATAFORMAS *arrayPlataformas = create_dynarray_plataformas(3);
-    insert_plataforma_politica(arrayPlataformas, "p1", "Configuracao", 3);
+    /*insert_plataforma_politica(arrayPlataformas, "p1", "Configuracao", 3);
     insert_plataforma_politica(arrayPlataformas, "p0", "Duracao", 3);
     insert_plataforma_politica(arrayPlataformas, "p2", "Epoca", 3);
     insert_plataforma_politica(arrayPlataformas, "p3", "Modalidade", 3);
@@ -128,11 +128,15 @@ int main_project(int argc, const char *argv[]) {
     insert_regra(pl->politica, "T1", 0.2);
     insert_regra(pl->politica, "T2", 0.3);
     insert_regra(pl->politica, "T3", 0.4);
-    print_regras(pl->politica);
+    print_regras(pl->politica);*/
 
     char file_PoliticaRegra_TXT[] = "../data/ficheirostxt/PoliticaRegra_TXT.txt";
     char file_PoliticaRegra_BIN[] = "../data/ficheirosbin/PoliticaRegra_BIN.txt";
-    save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+    //save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+    read_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+    print_plataforma_politica(arrayPlataformas);
+    PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
+    print_regras(pl->politica);
     return 0;
 }
 /*-------------------------------------------------------------------------------------------------------------------*/
@@ -1310,6 +1314,31 @@ void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
     }
     fclose(arquivoPlataformas);
     printf("Sucesso\n");
+}
+
+void
+read_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
+    FILE *arquivoPlataformas;
+    if ((arquivoPlataformas = fopen(filename, "r")) == NULL) {
+        fprintf(stdout, "ERRO\n");
+        return;
+    }
+    char nomeplat[20], nomePol[20], regra[10];
+    float ajuste = 0;
+    int size, nplat = 0, n_regras;
+
+    fscanf(arquivoPlataformas, "%*[^:]:%d", &nplat);
+    while (arquivoPlataformas != NULL && plataformas->n_plataformas < nplat) {
+        fscanf(arquivoPlataformas, "%*[^:]:%s %*[^:]:%s | %*[^:]:%d", nomeplat, nomePol, &n_regras);
+        insert_plataforma_politica(plataformas, nomeplat, nomePol, 3);
+        PLATAFORMA * pl = plataformas->pplataformas;
+        POLITICA * politica = pl->politica;
+        while (arquivoPlataformas != NULL && politica->n_regras < n_regras) {
+            fscanf(arquivoPlataformas, "%s | %f ", regra, &ajuste);
+            insert_regra(politica, regra, ajuste);
+        }
+    }
+    fclose(arquivoPlataformas);
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
