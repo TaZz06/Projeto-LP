@@ -189,12 +189,12 @@ void insert_estudio_ordered(LISTA_EDIFICIOS * lista_edificios, int id_edificio, 
                             float p_dia,
                             float p_mes, float p_final, int area);
 
-ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS * listaEdificios, int id_edificio, int n, int numero_porta);
+ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS * listaEdificios, int id_edificio, int numero_porta);
 
-void remove_estudio_ordered(const LISTA_EDIFICIOS * listaEdificios, int id_edificio, int n, int numero_porta);
+void remove_estudio_ordered(const LISTA_EDIFICIOS * listaEdificios, int id_edificio, int numero_porta);
 
 void
-change_estudio_info(LISTA_EDIFICIOS * listaEdificios, int id_edificio, int n, int numero_porta, int porta, char config[MAXCONFIG], int size_agendas,
+change_estudio_info(LISTA_EDIFICIOS * listaEdificios, int id_edificio, int numero_porta, int porta, char config[MAXCONFIG], int size_agendas,
                     float p_dia,
                     float p_mes, float p_final, int area);
 
@@ -296,6 +296,10 @@ void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]);
 void change_plataforma_info(ARRAY_PLATAFORMAS *plataformas, char nome[], char politica[]);
 
 void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]);
+
+void save_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]);
+
+void read_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]);
 
 void print_plataforma_politica(const ARRAY_PLATAFORMAS *plataformas);
 

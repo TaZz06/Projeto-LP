@@ -54,12 +54,12 @@ int main_project(int argc, const char *argv[]) {
     /* EDIFICIO *findEd = find_edificio(le, 0);
      //print_estudios(findEd);
 
-     ESTUDIO *found_estudio = binary_search_estudio(findEd, findEd->estudios.n_estudios, 121);
-     insert_agenda(found_estudio, id_agendas, "Master", 3);
-     insert_agenda(found_estudio, id_agendas, "AirBnA", 3);
-     insert_agenda(found_estudio, id_agendas, "AirBnB", 3);
-     insert_agenda(found_estudio, id_agendas, "AirBnC", 3);
-     //print_agendas(found_estudio);
+    ESTUDIO *found_estudio = binary_search_estudio(le, 1, 121);
+    insert_agenda(found_estudio, id_agendas, "Master", 3);
+    insert_agenda(found_estudio, id_agendas, "AirBnA", 3);
+    insert_agenda(found_estudio, id_agendas, "AirBnB", 3);
+    insert_agenda(found_estudio, id_agendas, "AirBnC", 3);
+    //print_agendas(found_estudio);
 
      AGENDA *found_agenda = find_agenda(found_estudio, 2);
      insert_dia(found_agenda, 10, 03, 2022);
@@ -112,27 +112,35 @@ int main_project(int argc, const char *argv[]) {
 
 
     ARRAY_PLATAFORMAS *arrayPlataformas = create_dynarray_plataformas(3);
-    insert_plataforma_politica(arrayPlataformas, "p1", "Configuracao", 3);
+    /*insert_plataforma_politica(arrayPlataformas, "p1", "Configuracao", 3);
     insert_plataforma_politica(arrayPlataformas, "p0", "Duracao", 3);
     insert_plataforma_politica(arrayPlataformas, "p2", "Epoca", 3);
     insert_plataforma_politica(arrayPlataformas, "p3", "Modalidade", 3);
     insert_plataforma_politica(arrayPlataformas, "p4", "Ocupacao", 3);
     print_plataforma_politica(arrayPlataformas);
-    printf("\n");
+    printf("\n");*/
     //remove_plataforma_politica(arrayPlataformas, "p2");
     //print_plataforma_politica(arrayPlataformas);
-    PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
+    //PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     //printf("%s", pl->nome);
 
-    insert_regra(pl->politica, "T0", 0.1);
+    /*insert_regra(pl->politica, "T0", 0.1);
     insert_regra(pl->politica, "T1", 0.2);
     insert_regra(pl->politica, "T2", 0.3);
     insert_regra(pl->politica, "T3", 0.4);
-    print_regras(pl->politica);
+    print_regras(pl->politica);*/
 
     char file_PoliticaRegra_TXT[] = "../data/ficheirostxt/PoliticaRegra_TXT.txt";
     char file_PoliticaRegra_BIN[] = "../data/ficheirosbin/PoliticaRegra_BIN.txt";
-    save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+
+    //save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+    //save_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
+
+    read_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
+    PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
+    print_plataforma_politica(arrayPlataformas);
+    print_regras(pl->politica);
+
     return 0;
 }
 /*-------------------------------------------------------------------------------------------------------------------*/
@@ -485,14 +493,14 @@ void sort_estudios(LISTA_EDIFICIOS *listaEdificios, int id_edificio) {
     }
 }
 
-ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS *listaEdificios, int id_edificio, int n, int numero_porta) {
+ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS *listaEdificios, int id_edificio, int numero_porta) {
     EDIFICIO *found_edificio = find_edificio(listaEdificios, id_edificio);
     if (found_edificio == NULL) {
         printf("Edificio nao encontrado\n");
         return NULL;
     }
     ESTUDIO *estudio = found_edificio->estudios.pestudios;
-    int lo = 0, hi = n - 1;
+    int lo = 0, hi = found_edificio->estudios.n_estudios - 1;
     while (lo <= hi) {
         int mid = (lo + hi) / 2;
         if (numero_porta < estudio[mid].numero_porta) hi = mid - 1;
@@ -502,9 +510,9 @@ ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS *listaEdificios, int id_edi
     return NULL;
 }
 
-void remove_estudio_ordered(const LISTA_EDIFICIOS *listaEdificios, int id_edificio, int n, int numero_porta) {
+void remove_estudio_ordered(const LISTA_EDIFICIOS *listaEdificios, int id_edificio, int numero_porta) {
     EDIFICIO *found_edificio = find_edificio(listaEdificios, id_edificio);
-    ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, id_edificio, n, numero_porta);
+    ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, id_edificio, numero_porta);
     if (found_estudio == NULL) {
         printf("Estudio nao encontrado\n");
         return;
@@ -527,12 +535,12 @@ void remove_estudio_ordered(const LISTA_EDIFICIOS *listaEdificios, int id_edific
 }
 
 void
-change_estudio_info(LISTA_EDIFICIOS *listaEdificios, int id_edificio, int n, int numero_porta, int porta,
+change_estudio_info(LISTA_EDIFICIOS *listaEdificios, int id_edificio, int numero_porta, int porta,
                     char config[MAXCONFIG], int size_agendas,
                     float p_dia,
                     float p_mes, float p_final, int area) {
     EDIFICIO *edificio = find_edificio(listaEdificios, id_edificio);
-    ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, id_edificio, n, numero_porta);
+    ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, id_edificio, numero_porta);
     if (found_estudio == NULL) {
         printf("Estudio nao encontrado\n");
         return;
@@ -577,7 +585,6 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 
 void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[],
                    int size_dias) {//TODO ID AGENDA / ID GLOBAL ACERTO
-
     if (found_estudio != NULL) {
         if (found_estudio->agendas.n_agendas >= found_estudio->agendas.size_agendas) {
             found_estudio->agendas.size_agendas *= 2;
@@ -887,7 +894,6 @@ void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
     for (int i = 0; i < listaEdificios->n_edificios; i++) {
         for (int j = 0; j < edificio->estudios.n_estudios; j++) {
             ESTUDIO *estudio = binary_search_estudio(listaEdificios, edificio->id_edificio,
-                                                     edificio->estudios.n_estudios,
                                                      edificio->estudios.pestudios[j].numero_porta);
             if (estudio->agendas.n_agendas != 0) {
                 fprintf(arquivoAgendas, "idEdificio: %d\n", edificio->id_edificio);
@@ -942,8 +948,7 @@ void read_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
         for (int i = 0; i < nAgendas; i++) {
             fscanf(arquivoAgendas, "%d %*c %s %*c %d %*c %d", &idAgenda, plataforma, &sizedias, &ndias);
             EDIFICIO *found_edf = find_edificio(listaEdificios, idEdf);
-            ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, found_edf->id_edificio,
-                                                           found_edf->estudios.n_estudios, portaEst);
+            ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, found_edf->id_edificio, portaEst);
             if (idAgenda > id_agendas) {
                 id_agendas = idAgenda + 1;
             }
@@ -1047,8 +1052,7 @@ void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]) {
         fread(&n_agendas, sizeof(int), 1, fileAgnEvn);
         printf("%d", n_agendas);
         EDIFICIO *found_edf = find_edificio(listaEdificios, id_edf);
-        ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, found_edf->id_edificio,
-                                                       found_edf->estudios.n_estudios, porta_est);
+        ESTUDIO *found_estudio = binary_search_estudio(listaEdificios, found_edf->id_edificio, porta_est);
         for (int i = 0; i < n_agendas && found_estudio->agendas.pagendas != NULL; ++i) {
             int id_agenda, size_plataforma, n_dias, size_dias;
             char plataforma[200];
@@ -1288,7 +1292,7 @@ void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]) {
     }
 }
 
-void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
+void save_plataformas_txt(ARRAY_PLATAFORMAS *plataformas, char filename[]) {
     FILE *arquivoPlataformas = NULL;
 
     if ((arquivoPlataformas = fopen(filename, "w")) == NULL) {
@@ -1302,13 +1306,76 @@ void save_plataformas_txt(ARRAY_PLATAFORMAS * plataformas, char filename[]) {
                 "Plataforma: %s\n", pl->nome);
         POLITICA *politica = pl->politica;
         fprintf(arquivoPlataformas, "\tPolitica: %s | Numero de regras: %d\n", politica->politica, politica->n_regras);
-        REGRA_CUSTO * regras = politica->regras;
+        REGRA_CUSTO *regras = politica->regras;
         for (int j = 0; j < politica->n_regras; j++) {
             fprintf(arquivoPlataformas, "\t\t %s | %.2f \n", regras->regra, regras->ajuste);
             regras++;
         }
     }
     fclose(arquivoPlataformas);
+    printf("Sucesso\n");
+}
+
+void save_plataformas_bin(ARRAY_PLATAFORMAS *plataformas, char filename[]) {
+    FILE *filePlataformas = NULL;
+
+    if ((filePlataformas = fopen(filename, "wb")) == NULL) {
+        printf("Erro %s\n", filename);
+        return;
+    }
+    PLATAFORMA *plataforma = plataformas->pplataformas;
+    fwrite(&plataformas->n_plataformas, sizeof(int), 1, filePlataformas);
+    for (int i = 0; i < plataformas->n_plataformas; i++) {
+        int size_plataforma = strlen(plataforma->nome) + 1;
+        fwrite(&size_plataforma, sizeof(int), 1, filePlataformas);
+        fwrite(plataforma->nome, sizeof(char), size_plataforma, filePlataformas);
+        int size_politica = strlen(plataforma->politica->politica) + 1;
+        fwrite(&size_politica, sizeof(int), 1, filePlataformas);
+        fwrite(plataforma->politica->politica, sizeof(char), size_politica, filePlataformas);
+        fwrite(&plataforma->politica->n_regras, sizeof(int), 1, filePlataformas);
+        REGRA_CUSTO *regraCusto = plataforma->politica->regras;
+        for (int j = 0; j < plataforma->politica->n_regras; j++) {
+            int size_regra = strlen(regraCusto->regra) + 1;
+            fwrite(&size_regra, sizeof(int), 1, filePlataformas);
+            fwrite(regraCusto->regra, sizeof(char), size_regra, filePlataformas);
+            fwrite(&regraCusto->ajuste, sizeof(float), 1, filePlataformas);
+            regraCusto++;
+        }
+        plataforma++;
+    }
+    fclose(filePlataformas);
+    printf("Sucesso\n");
+}
+
+void read_plataformas_bin(ARRAY_PLATAFORMAS * plataformas, char filename[]){
+    FILE *filePlataformas = NULL;
+    if ((filePlataformas = fopen(filename, "rb")) == NULL) {
+        printf("Erro %s\n", filename);
+        return;
+    }
+    int n_plataformas;
+    fread(&n_plataformas, sizeof(int), 1, filePlataformas);
+    for (int i = 0; i < n_plataformas; i++) {
+        int n_regras, size_plataforma, size_politica;
+        char plataforma[200] ={}, politica[200]={};
+        fread(&size_plataforma, sizeof(int), 1, filePlataformas);
+        fread(plataforma, sizeof(char), size_plataforma, filePlataformas);
+        fread(&size_politica, sizeof(int), 1, filePlataformas);
+        fread(politica, sizeof(char), size_politica, filePlataformas);
+        fread(&n_regras, sizeof(int), 1, filePlataformas);
+        insert_plataforma_politica(plataformas, plataforma, politica,3);
+        PLATAFORMA *pl = find_plataforma(plataformas, plataforma);
+        for (int j = 0; j < n_regras; j++) {
+            int size_regra;
+            float ajuste;
+            char regra[200]={};
+            fread(&size_regra, sizeof(int), 1, filePlataformas);
+            fread(regra, sizeof(char), size_regra, filePlataformas);
+            fread(&ajuste, sizeof(float), 1, filePlataformas);
+            insert_regra(pl->politica, regra,ajuste);
+        }
+    }
+    fclose(filePlataformas);
     printf("Sucesso\n");
 }
 
