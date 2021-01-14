@@ -160,6 +160,7 @@ int main_project(int argc, const char *argv[]) {
     PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     print_plataforma_politica(arrayPlataformas);
     print_regras(pl->politica);*/
+    taxa_ocupacao(le);
 
     return 0;
 }
@@ -1581,8 +1582,8 @@ void print_regras(const POLITICA *politica) {
         regraCusto++;
     }
 }
-void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios, int dia_i, int dia_f, int mes_i, int mes_f, int ano_i, int ano_f){
-    int dias = 0;
+void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios){
+    int dias = 0, aux = 0;
     float taxa = 0.0;
     LISTA_EVENTOS *historico = create_lista_eventos();
     EDIFICIO *edificio = listaEdificios->pedificios;
@@ -1599,7 +1600,8 @@ void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios, int dia_i, int dia_f, int m
                         while (n < dia->eventos.n_eventos) {
                             n++;
                             if (e->hospede_id != -1) {
-                                dias++;
+                                aux = e->dia_fim - e->dia_inicio;
+                                dias += aux;
                                 e = e->pevento_next;
                             } else e = e->pevento_next;
                         }

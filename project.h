@@ -327,7 +327,7 @@ void print_regras(const POLITICA *politica);
 
 void ajuste_preco_estudio(EDIFICIO *edificio, EST_POLITICA *estPolitica);
 
-void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios, int dia_i, int dia_f, int mes_i, int mes_f, int ano_i, int ano_f);
+void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
