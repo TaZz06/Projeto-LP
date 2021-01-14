@@ -136,11 +136,11 @@ int main_project(int argc, const char *argv[]) {
     //save_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
     //save_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
 
-    /*read_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
+    read_plataformas_txt(arrayPlataformas, file_PoliticaRegra_TXT);
     read_plataformas_bin(arrayPlataformas, file_PoliticaRegra_BIN);
     PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     print_plataforma_politica(arrayPlataformas);
-    print_regras(pl->politica);*/
+    print_regras(pl->politica);
 
     return 0;
 }
@@ -156,7 +156,7 @@ LISTA_EDIFICIOS *create_lista_edificios(void) {
 }
 
 void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int id_edificio, char morada_edificio[], float latitude,
-                             float longitude, float preco_m2,
+                             float longitude,
                              int size_estudios) {
     EDIFICIO *edificio = (EDIFICIO *) calloc(1, sizeof(EDIFICIO));
     id_edificios++;
@@ -165,7 +165,6 @@ void insert_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int id_edificio, 
     strcpy(edificio->edf_morada, morada_edificio);
     edificio->latitude = latitude;
     edificio->longitude = longitude;
-    edificio->preco_m2 = preco_m2;
     ARRAY_ESTUDIOS *ea = create_dynarray_estudios(size_estudios);
     edificio->estudios = *ea;
     edificio->edf_next = NULL;
@@ -196,7 +195,7 @@ EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio)
 }
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios,
-                             int id_edificio) { //TODO DAR FREE NOS ESTUDIOS/AGENDAS/...
+                             int id_edificio) {
     EDIFICIO *found_edificio = find_edificio(lista_edificios, id_edificio);
     if (found_edificio == NULL) {
         printf("Edificio nao encontrado\n");
@@ -226,7 +225,7 @@ void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios,
 
 void
 change_edificio_info(LISTA_EDIFICIOS *lista_edificios, int id_edificio, char morada_edificio[], float latitude,
-                     float longitude, float preco_m2) {
+                     float longitude) {
     EDIFICIO *found_edificio = find_edificio(lista_edificios, id_edificio);
     if (found_edificio == NULL) {
         printf("Edificio nao encontrado\n");
@@ -568,7 +567,7 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 }
 
 void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[],
-                   int size_dias) {//TODO ID AGENDA / ID GLOBAL ACERTO
+                   int size_dias) {
 
     if (found_estudio != NULL) {
         if (found_estudio->agendas.n_agendas >= found_estudio->agendas.size_agendas) {
@@ -589,7 +588,7 @@ void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[],
     }
 }
 
-void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda) {//Todo Libertar array de dias
+void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda) {
     ARRAY_AGENDAS *arrayAgendas = &estudio->agendas;
     int i = 0;
     while (i != arrayAgendas->size_agendas) {
@@ -1137,7 +1136,7 @@ HOSPEDE *find_hospede(const LISTA_HOSPEDES *lista_hospedes, int id_hospede) {
 }
 
 void remove_hospede_ordered(LISTA_HOSPEDES *lista_hospedes,
-                            HOSPEDE *found_hospede) { //TODO DAR FREE NOS ESTUDIOS/AGENDAS/...
+                            HOSPEDE *found_hospede) {
     HOSPEDE *ppre = NULL, *pcur = lista_hospedes->phospedes;
     while (pcur != found_hospede && pcur != NULL) {
         ppre = pcur;
@@ -1451,3 +1450,7 @@ void print_regras(const POLITICA *politica) {
         regraCusto++;
     }
 }
+
+/*void ajuste_preco_estudio(EDIFICIO *edificio, EST_POLITICA *estPolitica, int data_inicio, int data_fim) {
+
+}*/

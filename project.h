@@ -242,7 +242,6 @@ void print_dias(const AGENDA *found_agenda);
 
 LISTA_EVENTOS *create_lista_eventos(void);
 
-
 void insert_evento(DIA *found_dia, int id_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
 EVENTO *find_evento(const DIA *found_dia, int id_evento);
