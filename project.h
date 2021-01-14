@@ -164,6 +164,8 @@ EDIFICIO *find_edificio(const LISTA_EDIFICIOS *lista_edificios, int id_edificio)
 
 void remove_edificio_ordered(LISTA_EDIFICIOS *lista_edificios, int id_edificio);
 
+void free_memory_edificio(EDIFICIO * found_edificio);
+
 void
 change_edificio_info(LISTA_EDIFICIOS *lista_edificios, int id_edificio, char morada_edificio[], float latitude,
                      float longitude, float preco_m2);
@@ -191,6 +193,8 @@ ESTUDIO *binary_search_estudio(const LISTA_EDIFICIOS *listaEdificios, int id_edi
 
 void remove_estudio_ordered(const LISTA_EDIFICIOS *listaEdificios, int id_edificio, int numero_porta);
 
+void free_memory_estudio(ESTUDIO *estudio);
+
 void
 change_estudio_info(LISTA_EDIFICIOS *listaEdificios, int id_edificio, int numero_porta, int porta,
                     char config[MAXCONFIG], int size_agendas,
@@ -211,6 +215,8 @@ void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[], int
 AGENDA *find_agenda(const ESTUDIO *found_estudio, int id_agenda);
 
 void remove_agenda(ESTUDIO *estudio, AGENDA *found_agenda);
+
+void free_memory_agenda(AGENDA * agenda);
 
 void change_agenda_info(ESTUDIO *found_estudio, AGENDA *found_agenda, char plataforma[]);
 
@@ -250,7 +256,7 @@ void remove_evento(DIA *found_dia, EVENTO *found_evento);
 
 void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
-void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
+void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[], int id_edificio, int numero_porta);
 
 void read_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
@@ -258,7 +264,7 @@ void save_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
 void read_eventos_bin(LISTA_EDIFICIOS *listaEdificios, char filename[]);
 
-void historico_estadias(LISTA_EDIFICIOS *listaEdificios, LISTA_HOSPEDES *listaHospedes);
+void historico_estadias(LISTA_EDIFICIOS *listaEdificios, LISTA_HOSPEDES *listaHospedes, char filename[]);
 
 void print_eventos(const DIA *found_dia);
 
@@ -291,6 +297,8 @@ PLATAFORMA *find_plataforma(const ARRAY_PLATAFORMAS *plataformas, char nome[]);
 
 void remove_plataforma_politica(ARRAY_PLATAFORMAS *plataformas, char nome[]);
 
+void free_memory_plataforma(PLATAFORMA * plataforma);
+
 void change_plataforma_info(ARRAY_PLATAFORMAS *plataformas, char nome[], char politica[]);
 
 void save_plataformas_txt(ARRAY_PLATAFORMAS *plataformas, char filename[]);
@@ -318,6 +326,8 @@ void change_regra(POLITICA *politica, char regra[], float ajuste);
 void print_regras(const POLITICA *politica);
 
 void ajuste_preco_estudio(EDIFICIO *edificio, EST_POLITICA *estPolitica);
+
+void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios, int dia_i, int dia_f, int mes_i, int mes_f, int ano_i, int ano_f);
 
 /*----------------------------------------------------------------------------------------------------------------*/
 
