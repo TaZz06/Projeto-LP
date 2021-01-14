@@ -16,7 +16,7 @@ int main_project(int argc, const char *argv[]) {
     int size = 10;
 
     LISTA_EDIFICIOS *le = create_lista_edificios();
-    insert_edificio_ordered(le, id_edificios, "Rua da Boavista", -12.0, 3.0, 2.3, size);
+    /*insert_edificio_ordered(le, id_edificios, "Rua da Boavista", -12.0, 3.0, 2.3, size);
     insert_edificio_ordered(le, id_edificios, "Rua Aldeia Nova", -125453, 434125, 2.3, size);
     insert_edificio_ordered(le, id_edificios, "Rua das Conchas", -13213, 478785, 3.1, size);
     insert_edificio_ordered(le, id_edificios, "Rua das Cavadas", -123, 495, 5.4, size);
@@ -34,14 +34,14 @@ int main_project(int argc, const char *argv[]) {
     insert_estudio_ordered(le, 1, id_estudios, 155, T2, 3, 120);
     insert_estudio_ordered(le, 1, id_estudios, 129, T4, 3, 120);
     insert_estudio_ordered(le, 1, id_estudios, 111, T2, 3, 120);
-    insert_estudio_ordered(le, 1, id_estudios, 145, T4, 3, 120);
+    insert_estudio_ordered(le, 1, id_estudios, 145, T4, 3, 120);*/
     //print_estudios(le, 1);
 
 
     char file_EdfEst_TXT[] = "../data/ficheirostxt/EdfEst_TXT.txt";
     char file_EdfEst_BIN[] = "../data/ficheirosbin/EdfEst_BIN.txt";
     //save_edificios_txt(le, file_EdfEst_TXT);
-    //read_edificios_txt(le, file_EdfEst_TXT);
+    read_edificios_txt(le, file_EdfEst_TXT);
     //save_edificios_bin(le, file_EdfEst_BIN);
     //read_edificios_bin(le, file_EdfEst_BIN);
 
@@ -160,7 +160,8 @@ int main_project(int argc, const char *argv[]) {
     PLATAFORMA *pl = find_plataforma(arrayPlataformas, "p1");
     print_plataforma_politica(arrayPlataformas);
     print_regras(pl->politica);*/
-    taxa_ocupacao(le);
+    char file_taxa_TXT[] = "../data/ficheirostxt/taxa.txt";
+    taxa_ocupacao(le, file_taxa_TXT);
 
     return 0;
 }
@@ -1582,7 +1583,13 @@ void print_regras(const POLITICA *politica) {
         regraCusto++;
     }
 }
-void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios){
+void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios, char filename[]){
+    FILE *arquivoTaxas = NULL;
+
+    if ((arquivoTaxas = fopen(filename, "w")) == NULL) {
+        fprintf(stdout, "ERRO\n");
+        return;
+    }
     int dias = 0, aux = 0;
     float taxa = 0.0;
     LISTA_EVENTOS *historico = create_lista_eventos();
@@ -1605,6 +1612,11 @@ void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios){
                                 e = e->pevento_next;
                             } else e = e->pevento_next;
                         }
+                        taxa = ((float)dias/30) * 100;
+                        printf("IdEdificio: %d Numero Estudio: %d\n", edificio->id_edificio, estudio->numero_porta);
+                        printf("Taxa: %f\n", taxa);
+                        fprintf(arquivoTaxas, "IdEdificio: %d Numero Estudio: %d\n", edificio->id_edificio, estudio->numero_porta);
+                        fprintf(arquivoTaxas, "Taxa de ocupacao: %f\n", taxa);
                     }
                     dia++;
                 }
@@ -1616,6 +1628,3 @@ void taxa_ocupacao(LISTA_EDIFICIOS * listaEdificios){
     }
     printf("Dias: %d\n", dias);
 }
-/*void ajuste_preco_estudio(EDIFICIO *edificio, EST_POLITICA *estPolitica, int data_inicio, int data_fim) {
-
-}*/
