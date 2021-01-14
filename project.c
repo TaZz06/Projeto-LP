@@ -60,8 +60,8 @@ int main_project(int argc, const char *argv[]) {
     //read_eventos_bin(le, file_AgendaEv_BIN);
 
     //print_edificios(le);
-     EDIFICIO *findEd = find_edificio(le, 0);
-     //print_estudios(findEd);
+    EDIFICIO *findEd = find_edificio(le, 0);
+    //print_estudios(findEd);
 
     ESTUDIO *found_estudio = binary_search_estudio(le, 1, 121);
     insert_agenda(found_estudio, id_agendas, "Master", 3);
@@ -70,32 +70,38 @@ int main_project(int argc, const char *argv[]) {
     insert_agenda(found_estudio, id_agendas, "AirBnC", 3);
     //print_agendas(found_estudio);
 
-     AGENDA *found_agenda = find_agenda(found_estudio, 2);
-     insert_dia(found_agenda, 10, 03, 2022);
-     insert_dia(found_agenda, 1, 01, 2021);
-     insert_dia(found_agenda, 2, 01, 2021);
-     insert_dia(found_agenda, 4, 02, 2022);
-     insert_dia(found_agenda, 5, 1, 2021);
-     insert_dia(found_agenda, 9, 03, 2022);
-     insert_dia(found_agenda, 12, 01, 2021);
-     insert_dia(found_agenda, 14, 01, 2021);
-     insert_dia(found_agenda, 20, 02, 2022);
-     insert_dia(found_agenda, 30, 1, 2020);
-     //print_dias(found_agenda);
+    AGENDA *found_agenda = find_agenda(found_estudio, 2);
+    insert_dia(found_agenda, 10, 03, 2022);
+    insert_dia(found_agenda, 1, 01, 2021);
+    insert_dia(found_agenda, 2, 01, 2021);
+    insert_dia(found_agenda, 4, 02, 2022);
+    insert_dia(found_agenda, 5, 1, 2021);
+    insert_dia(found_agenda, 9, 03, 2022);
+    insert_dia(found_agenda, 12, 01, 2021);
+    insert_dia(found_agenda, 14, 01, 2021);
+    insert_dia(found_agenda, 20, 02, 2022);
+    insert_dia(found_agenda, 30, 1, 2020);
+    //print_dias(found_agenda);
 
-     insert_evento(found_agenda, id_eventos, "Manuntencao", -1, 01, 01, 2020, 03, 01, 2020);
-     /*insert_evento(found_agenda, id_eventos, "Estadia", 5, 01, 01, 2020, 03, 01, 2020);
-     insert_evento(found_agenda, id_eventos, "Limpeza", -1, 01, 01, 2020, 03, 01, 2020);
-     insert_evento(found_agenda, id_eventos, "Reuniao", 2, 01, 01, 2020, 03, 01, 2020);
-     insert_evento(found_agenda, id_eventos, "Limpeza", -1, 01, 01, 2020, 03, 01, 2020);
-     insert_evento(found_agenda, id_eventos, "Estadia", 1, 01, 01, 2020, 03, 01, 2020);
-     insert_evento(found_agenda, id_eventos, "Manuntencao", -1, 01, 01, 2020, 03, 01, 2020);*/
-     DIA *pdia = find_dia(found_agenda,1, 1,2020);
-     print_eventos(pdia);
-     DIA *pdia2 = find_dia(found_agenda,2, 1,2020);
-     print_eventos(pdia2);
-     DIA *pdia3 = find_dia(found_agenda,3, 1,2020);
-     print_eventos(pdia3);
+    insert_evento(found_agenda, id_eventos, "Manutencao", -1, 30, 01, 2020, 01, 02, 2020);
+    insert_evento(found_agenda, id_eventos, "Estadia", 5, 01, 01, 2020, 03, 01, 2020);
+    insert_evento(found_agenda, id_eventos, "Limpeza", -1, 01, 01, 2020, 03, 01, 2020);
+    insert_evento(found_agenda, id_eventos, "Reuniao", 2, 01, 01, 2020, 03, 01, 2020);
+    insert_evento(found_agenda, id_eventos, "Manutencao", -1, 01, 01, 2020, 03, 01, 2020);
+    DIA *pdia = find_dia(found_agenda, 30, 1, 2020);
+    print_eventos(pdia);
+    DIA *pdia3 = find_dia(found_agenda, 31, 1, 2020);
+    print_eventos(pdia3);
+    DIA *pdia2 = find_dia(found_agenda, 1, 2, 2020);
+    print_eventos(pdia2);
+    DIA *pdia4 = find_dia(found_agenda, 1, 1, 2020);
+    print_eventos(pdia4);
+    DIA *pdia5 = find_dia(found_agenda, 2, 1, 2020);
+    print_eventos(pdia5);
+    DIA *pdia6 = find_dia(found_agenda, 3, 1, 2020);
+    print_eventos(pdia6);
+    /*DIA *pdia3 = find_dia(found_agenda,3, 1,2020);
+    print_eventos(pdia3);*/
 
     //EVENTO *found_evento = find_evento(found_dia, 2);
     //printf("%s\n", found_evento->nome);
@@ -581,7 +587,7 @@ ARRAY_AGENDAS *create_dynarray_agendas(int initsize) {
 }
 
 void insert_agenda(ESTUDIO *found_estudio, int id_agenda, char plataforma[],
-                   int size_dias) {//TODO ID AGENDA / ID GLOBAL ACERTO
+                   int size_dias) {
 
     if (found_estudio != NULL) {
         if (found_estudio->agendas.n_agendas >= found_estudio->agendas.size_agendas) {
@@ -696,7 +702,7 @@ DIA *insert_dia(AGENDA *found_agenda, int dia, int mes, int ano) {
 DIA *find_dia(const AGENDA *found_agenda, int dia, int mes, int ano) {
     DIA *d = found_agenda->dias.pdias;
     int i = 0;
-    while (i<found_agenda->dias.n_dias) {
+    while (i < found_agenda->dias.n_dias) {
         if (d->dia == dia && d->mes == mes && d->ano == ano) return d;
         d++;
         i++;
@@ -803,13 +809,13 @@ insert_evento(AGENDA *agenda, int id_evento, char *nome, int hospede_id, int dia
 
     while ((dia_i != dia_f) || (mes_i != mes_f) || (ano_i != ano_f)) {
         DIA *found_dia = find_dia(agenda, dia_i, mes_i, ano_i);
-        if (found_dia == NULL){
+        if (found_dia == NULL) {
             insert_dia(agenda, dia_i, mes_i, ano_i);
             found_dia = find_dia(agenda, dia_i, mes_i, ano_i);
         }
 
         EVENTO *ppre = NULL, *pcur = found_dia->eventos.peventos;
-        while (pcur != NULL && strcmp(nome, pcur->nome) < 0) {
+        while (pcur != NULL && hospede_id > pcur->hospede_id) {
             ppre = pcur;
             pcur = pcur->pevento_next;
         }
@@ -818,35 +824,35 @@ insert_evento(AGENDA *agenda, int id_evento, char *nome, int hospede_id, int dia
             e->pevento_next = found_dia->eventos.peventos;
             found_dia->eventos.peventos = e;
             found_dia->eventos.n_eventos++;
-        }
-        else{
-        e->pevento_next = pcur;
-        ppre->pevento_next = e;
-        found_dia->eventos.n_eventos++;
+        } else {
+            e->pevento_next = pcur;
+            ppre->pevento_next = e;
+            found_dia->eventos.n_eventos++;
         }
         dia_i++;
-        if (dia_i == 31 && mes_i == 1 || dia_i == 31 && mes_i == 3 || dia_i == 31 && mes_i == 5 ||
-            dia_i == 31 && mes_i == 7 || dia_i == 31 && mes_i == 8 || dia_i == 31 && mes_i == 10) {
+        if ((dia_i == 32 && mes_i == 1) || (dia_i == 32 && mes_i == 3) || (dia_i == 32 && mes_i == 5) ||
+            (dia_i == 32 && mes_i == 7) || (dia_i == 32 && mes_i == 8) || (dia_i == 32 && mes_i == 10)) {
             dia_i = 1;
             mes_i += 1;
         }
-        if (dia_i == 30 && mes_i == 4 || dia_i == 30 && mes_i == 6 || dia_i == 30 && mes_i == 9 ||
-            dia_i == 30 && mes_i == 11) {
+        if ((dia_i == 31 && mes_i == 4) || (dia_i == 31 && mes_i == 6) || (dia_i == 31 && mes_i == 9) ||
+            (dia_i == 31 && mes_i == 11)) {
             dia_i = 1;
             mes_i += 1;
         }
-        if (dia_i == 29 && mes_i == 2) {
+        if (dia_i == 30 && mes_i == 2) {
             dia_i = 1;
             mes_i += 1;
         }
-        if (dia_i == 31 && mes_i == 12) {
+        if (dia_i == 32 && mes_i == 12) {
             dia_i = 1;
             mes_i = 1;
             ano_i += 1;
         }
+
     }
     DIA *found_dia = find_dia(agenda, dia_i, mes_i, ano_i);
-    if (found_dia == NULL){
+    if (found_dia == NULL) {
         insert_dia(agenda, dia_i, mes_i, ano_i);
         found_dia = find_dia(agenda, dia_i, mes_i, ano_i);
     }
@@ -876,27 +882,34 @@ EVENTO *find_evento(const DIA *found_dia, int id_evento) {
     return NULL;
 }
 
-void remove_evento(DIA *found_dia, EVENTO *found_evento) {
-    EVENTO *ppre = NULL, *pcur = found_dia->eventos.peventos;
-    while (pcur != found_evento && pcur != NULL) {
-        ppre = pcur;
-        pcur = pcur->pevento_next;
+void remove_evento(AGENDA *pagenda, int id_evento) {
+
+    DIA *pdia = pagenda->dias.pdias;
+    while (pdia != NULL) {
+        if (pdia->eventos.peventos->id_evento == id_evento) {
+            EVENTO *ppre = NULL, *pcur = pdia->eventos.peventos;
+            while (pcur != found_evento && pcur != NULL) {
+                ppre = pcur;
+                pcur = pcur->pevento_next;
+            }
+            if (found_dia->eventos.peventos == found_evento) { //Primeiro
+                found_dia->eventos.peventos = pcur->pevento_next;
+                found_dia->eventos.n_eventos--;
+                free(pcur);
+                return;
+            }
+            if (found_dia->eventos.peventos->pevento_next == found_evento) {
+                found_dia->eventos.peventos->pevento_next = pcur->pevento_next;
+                found_dia->eventos.n_eventos--;
+                free(pcur);
+                return;
+            }
+            ppre->pevento_next = pcur->pevento_next;
+            free(pcur);
+            found_dia->eventos.n_eventos--;
+        }
+        pdia++;
     }
-    if (found_dia->eventos.peventos == found_evento) { //Primeiro
-        found_dia->eventos.peventos = pcur->pevento_next;
-        found_dia->eventos.n_eventos--;
-        free(pcur);
-        return;
-    }
-    if (found_dia->eventos.peventos->pevento_next == found_evento) {
-        found_dia->eventos.peventos->pevento_next = pcur->pevento_next;
-        found_dia->eventos.n_eventos--;
-        free(pcur);
-        return;
-    }
-    ppre->pevento_next = pcur->pevento_next;
-    free(pcur);
-    found_dia->eventos.n_eventos--;
 }
 
 /*void change_evento_info(AGENDA *agenda, EVENTO *found_evento, char *nome, int hospede_id) {
@@ -917,18 +930,18 @@ void remove_evento(DIA *found_dia, EVENTO *found_evento) {
     found_evento->hospede_id = hospede_id;
     found_evento->dia_inicio = dia_inicio;
     found_evento->dia_fim = dia_fim;*/
-    /*Colocar o edificio alterado na posição correta, na lista, tendo em conta a  morada*/
-   /* while (pcur != NULL && dia_inicio > pcur->dia_inicio) {
-        ppre = pcur;
-        pcur = pcur->pevento_next;
-    }
-    if (pcur == found_dia->eventos.peventos) {
-        found_evento->pevento_next = found_dia->eventos.peventos;
-        found_dia->eventos.peventos = found_evento;
-        return;
-    }
-    found_evento->pevento_next = pcur;
-    ppre->pevento_next = found_evento;
+/*Colocar o edificio alterado na posição correta, na lista, tendo em conta a  morada*/
+/* while (pcur != NULL && dia_inicio > pcur->dia_inicio) {
+     ppre = pcur;
+     pcur = pcur->pevento_next;
+ }
+ if (pcur == found_dia->eventos.peventos) {
+     found_evento->pevento_next = found_dia->eventos.peventos;
+     found_dia->eventos.peventos = found_evento;
+     return;
+ }
+ found_evento->pevento_next = pcur;
+ ppre->pevento_next = found_evento;
 }*/
 
 /*void save_eventos_txt(LISTA_EDIFICIOS *listaEdificios, char filename[]) {

@@ -245,7 +245,7 @@ insert_evento(AGENDA *agenda, int id_evento, char *nome, int hospede_id, int dia
 
 EVENTO *find_evento(const DIA *found_dia, int id_evento);
 
-void remove_evento(DIA *found_dia, EVENTO *found_evento);
+void remove_evento(AGENDA *pagenda, int id_evento);
 
 void change_evento_info(DIA *found_dia, EVENTO *found_evento, char *nome, int hospede_id, int dia_inicio, int dia_fim);
 
